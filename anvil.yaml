@@ -50,8 +50,8 @@ db_schema:
     columns: []
     server: full
     title: wg_node_9898
-name: Material Design 1
-package_name: Material_Design_1
+name: xuji2wg
+package_name: xuji2wg
 runtime_options:
   client_version: '3'
   server_spec: {base: python310-minimal}
