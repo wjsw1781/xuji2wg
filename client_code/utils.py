@@ -16,6 +16,7 @@ def say_hello():
 
 import anvil
 from anvil import *
+import anvil.server
 
 
 # 所有表
