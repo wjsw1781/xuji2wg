@@ -6,8 +6,36 @@ from anvil.tables import app_tables
 import anvil
 
 
-# 动态表单
 
+# 所有表
+def get_all_table():
+    try:
+        app_tables.job1
+    except :
+        pass
+    all_table_dict = {}
+
+    for key in app_tables.cache:
+        table_list = app_tables.cache[key].list_columns()
+        table_key =[]
+
+        for ii in table_list:
+            table_key.append(ii['name'])
+        table_key.sort()
+        all_table_dict[key] = table_key
+    return all_table_dict
+all_table_scahma = get_all_table()
+
+
+# 反向寻找dict key 通过 value
+def find_table_exact(row_dict, schema_map):
+    row_set = set(row_dict.keys())
+    for table, cols in schema_map.items():
+        if row_set == set(cols):          # 完全一致（忽略顺序）
+            return table
+    return None
+    
+# 动态表单
 def quick_add_row(grid):
     """
   弹出⼀个临时对话框，根据传⼊ DataGrid 的列动态⽣成若干 TextBox，
@@ -42,22 +70,7 @@ def quick_add_row(grid):
         return None
 
 
-def guess_table_by_keys(row_dict):
-    """
-    根据 row_dict 的 key 集合，在 app_tables 里找出最匹配的表
-    返回 Tables.Table 对象或 None
-    """
-    keys = set(row_dict.keys())
-
-    for name in dir(app_tables):
-        tbl = getattr(app_tables, name)
-        # 真正的 Table 对象同时满足下列两个条件
-        if isinstance(tbl, tables.Table) and hasattr(tbl, "list_columns"):
-            col_names = {c.name for c in tbl.list_columns()}
-            if keys.issubset(col_names):
-                # 找到第一张能覆盖所有 key 的表
-                return tbl
-    return None
+# 最近的数据表组件 以及 scahma
 def nearest_datagrid(comp):
     def find_in_descendants(container):
         """递归在 container 的所有后代里查找 DataGrid"""
@@ -74,7 +87,6 @@ def nearest_datagrid(comp):
     cur = comp
     if isinstance(cur, anvil.DataGrid):
         return cur
-
         
     while cur is not None:
         grid = find_in_descendants(cur.parent)
@@ -83,6 +95,15 @@ def nearest_datagrid(comp):
         # 如果没找到，就再向上一级
         cur = cur.parent
     return None
+    
+def get_scahma_by_grid(grid):
+    data = {}
+    for c in grid.columns:
+        data[c['data_key']] = ""
+    return data
+    
+
+
 
 class up_dataant_info(up_dataant_infoTemplate):
     def __init__(self, **properties):
@@ -91,6 +112,7 @@ class up_dataant_info(up_dataant_infoTemplate):
 
         # Any code you write here will run before the form opens.
 
+
     def add_one_row_click(self, **event_args):
         """This method is called when the button is clicked"""
         # 获取当前数据库表的名称和字段
@@ -98,10 +120,15 @@ class up_dataant_info(up_dataant_infoTemplate):
         grid = nearest_datagrid(sender)
 
         row = quick_add_row(grid)
-        print(row)
-        print(guess_table_by_keys(row))
-        self.repeating_panel_2.tag
         
+        if not row:
+            return
+            
+        table_name = find_table_exact(row,all_table_scahma)
+
+        table_obj = getattr(app_tables,table_name)
+
+        table_obj.add_row(**row)
 
 
     def query_click(self, **event_args):
