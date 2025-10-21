@@ -20,6 +20,17 @@ db_schema:
       type: string
     server: full
     title: dataant_status
+  imei_node:
+    client: none
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: imei
+      type: string
+    - admin_ui: {order: 1, width: 200}
+      name: type_zhenji_or_xuji
+      type: string
+    server: full
+    title: imei_node
   job:
     client: full
     columns:
@@ -34,6 +45,27 @@ db_schema:
       type: string
     server: full
     title: job
+  san_job_node_table:
+    client: none
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: job_name
+      target: job
+      type: link_single
+    - admin_ui: {order: 1, width: 200}
+      name: wg_node_0000
+      target: wg_node_0000
+      type: link_single
+    - admin_ui: {order: 2, width: 200}
+      name: wg_node_9898
+      target: wg_node_9898
+      type: link_single
+    - admin_ui: {order: 3, width: 200}
+      name: imei_name
+      target: imei_node
+      type: link_single
+    server: full
+    title: san_job_node_table
   wg_node_0000:
     client: full
     columns:
