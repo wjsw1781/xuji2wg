@@ -16,7 +16,7 @@ import anvil.server
 #   return 42
 #
 # @anvil.server.route('/add',methods=['post'])
-@anvil.server.http_endpoint("/add")
-def add_numbers(param):
-    return param
-
+@anvil.server.http_endpoint("/add", methods=["POST","GET"], authenticate_users=False)
+def wg_server_public_ip_update(**kw):
+    data = anvil.server.request.body_json      # 这里拿到 JSON 数据
+    return data
