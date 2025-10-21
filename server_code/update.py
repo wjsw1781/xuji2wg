@@ -1,4 +1,4 @@
-import anvil.tables as tables
+updateimport anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
@@ -20,3 +20,17 @@ import anvil.server
 def wg_server_public_ip_update(**kw):
     data = anvil.server.request.body_json      # 这里拿到 JSON 数据
     return data
+
+
+
+@anvil.server.http_endpoint("/add_table_json", methods=["POST","GET"], authenticate_users=False)
+def update_table_json():
+    data = anvil.server.request.body_json      # 这里拿到 JSON 数据
+    return data
+
+@anvil.server.http_endpoint("/update_table_json", methods=["POST","GET"], authenticate_users=False)
+def update_table_json():
+    data = anvil.server.request.body_json      # 这里拿到 JSON 数据
+    return data
+
+    
