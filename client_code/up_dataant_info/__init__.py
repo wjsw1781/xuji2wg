@@ -27,8 +27,17 @@ def get_all_table():
 all_table_scahma = get_all_table()
 
 
-# 反向寻找dict key 通过 value
+# 反向寻找dict key 通过 value 或者 grid
 def find_table_exact(row_dict, schema_map):
+    def get_scahma_by_grid(grid):
+        data = {}
+        for c in grid.columns:
+            data[c['data_key']] = ""
+        return data
+
+    if isinstance(row_dict, anvil.DataGrid):
+        row_dict = get_scahma_by_grid(row_dict)
+        
     row_set = set(row_dict.keys())
     for table, cols in schema_map.items():
         if row_set == set(cols):          # 完全一致（忽略顺序）
@@ -84,6 +93,7 @@ def nearest_datagrid(comp):
             if res is not None:
                 return res
         return None
+        
     cur = comp
     if isinstance(cur, anvil.DataGrid):
         return cur
@@ -96,12 +106,7 @@ def nearest_datagrid(comp):
         cur = cur.parent
     return None
     
-def get_scahma_by_grid(grid):
-    data = {}
-    for c in grid.columns:
-        data[c['data_key']] = ""
-    return data
-    
+
 
 
 
@@ -109,7 +114,6 @@ class up_dataant_info(up_dataant_infoTemplate):
     def __init__(self, **properties):
         # Set Form properties and Data Bindings.
         self.init_components(**properties)
-
         # Any code you write here will run before the form opens.
 
 
@@ -132,5 +136,12 @@ class up_dataant_info(up_dataant_infoTemplate):
 
 
     def query_click(self, **event_args):
-        """This method is called when the button is clicked"""
+        sender = event_args['sender'] 
+        grid = nearest_datagrid(sender)
+        table_name = find_table_exact(grid,all_table_scahma)
+        print(table_name)
+
+        
+        
         pass
+
