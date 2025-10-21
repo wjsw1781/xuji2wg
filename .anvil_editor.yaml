@@ -6,6 +6,7 @@ unique_ids:
     up_dataant_info: 3FQ3CJRKOQSB5HUV34YELV4MZ7RWBLP3
     up_dataant_info.RowTemplate1: '1761017786770931612468588.2498'
     up_dataant_info.RowTemplate2: '176102364294280831498505.34244'
-  modules: {}
+  modules:
+    utils: '176103582934542851087702.877266'
   scripts: {}
   server_modules: {}
