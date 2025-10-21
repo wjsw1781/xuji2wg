@@ -1,7 +1,7 @@
 allow_embedding: false
 db_schema:
   dataant_status:
-    client: none
+    client: full
     columns:
     - admin_ui: {order: 0, width: 200}
       name: job_name
@@ -20,6 +20,39 @@ db_schema:
       type: string
     server: full
     title: dataant_status
+  job:
+    client: full
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: name
+      type: string
+    - admin_ui: {order: 1, width: 200}
+      name: info
+      type: string
+    - admin_ui: {order: 2, width: 200}
+      name: spider_location
+      type: string
+    - admin_ui: {order: 3, width: 200}
+      name: spider_node_num
+      type: string
+    server: full
+    title: job
+  wg_node_0000:
+    client: none
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: wg_client_ip
+      type: string
+    - admin_ui: {order: 1, width: 200}
+      name: wg_conf
+      type: string
+    server: full
+    title: wg_node_0000
+  wg_node_9898:
+    client: none
+    columns: []
+    server: full
+    title: wg_node_9898
 name: Material Design 1
 package_name: Material_Design_1
 runtime_options:

@@ -1,38 +1,44 @@
 components:
 - components:
-  - layout_properties: {grid_position: 'JDIZFF,OCFTDU'}
-    name: card_2
-    properties: {role: card}
-    type: ColumnPanel
   - components:
+    - layout_properties: {grid_position: 'PPPRPP,FPFCFO'}
+      name: headline_1_copy
+      properties: {align: center, role: headline, text: 业务状态}
+      type: Label
     - layout_properties: {grid_position: 'PPPRPP,VPJBAP'}
-      name: job_name
+      name: job_name_copy
       properties: {}
       type: DropDown
     - layout_properties: {grid_position: 'PPPRPP,DARVFS'}
-      name: query
+      name: query_copy
       properties: {role: primary-color, text: 查询}
       type: Button
-    layout_properties: {grid_position: 'FKBKID,AOZGWB'}
-    name: card_1
+    - event_bindings: {click: add_one_row_click}
+      layout_properties: {grid_position: 'PPPRPP,ZEHELA'}
+      name: add_one_row
+      properties: {role: primary-color, text: 新增}
+      type: Button
+    - components:
+      - name: repeating_panel_2
+        properties: {item_template: up_dataant_info.RowTemplate2}
+        type: RepeatingPanel
+      layout_properties: {full_width_row: true, grid_position: 'BWFQAJ,IMSITE'}
+      name: data_grid_2
+      properties:
+        columns:
+        - {data_key: name, id: XFQJQD, title: name}
+        - {data_key: info, id: OZWBKT, title: info}
+        - {data_key: spider_location, id: WMCVNE, title: spider_location}
+        - {data_key: spider_node_num, id: GPKAMX, title: spider_node_num}
+      type: DataGrid
+    layout_properties: {full_width_row: true, grid_position: 'YTBJFH,RBCXPJ'}
+    name: card_1_copy
     properties: {role: card}
     type: ColumnPanel
-  - components:
-    - name: repeating_panel_1
-      properties: {item_template: up_dataant_info.RowTemplate1}
-      type: RepeatingPanel
-    layout_properties: {grid_position: 'PQJGEE,RDJPYU'}
-    name: data_grid_1
-    properties:
-      columns:
-      - {data_key: column_1, id: GEXHIY, title: 一键部署autojs}
-      - {data_key: column_1, id: SHEGSZ, title: 远程ssh}
-      - {data_key: column_1, id: BINIJK, title: 编辑}
-      - {data_key: job_name, id: UMNFYV, title: job_name}
-      - {data_key: wg_client_ip, id: CWAHOD, title: wg_client_ip}
-      - {data_key: status_翻墙, id: PSBAPJ, title: status_翻墙}
-      - {data_key: status_出口ip, id: NDIQOE, title: status_出口ip}
-    type: DataGrid
+  - layout_properties: {grid_position: 'CRPROL,DVXGYO'}
+    name: card_2
+    properties: {role: card}
+    type: ColumnPanel
   layout_properties: {slot: default}
   name: content_panel
   properties: {}
@@ -44,4 +50,5 @@ components:
 container:
   properties: {html: '@theme:standard-page.html'}
   type: HtmlTemplate
+custom_component: true
 is_package: true
