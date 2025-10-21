@@ -1,10 +1,25 @@
 allow_embedding: false
 db_schema:
-  table_1:
+  dataant_status:
     client: none
-    columns: []
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: job_name
+      type: string
+    - admin_ui: {order: 1, width: 200}
+      name: wg_client_ip
+      type: string
+    - admin_ui: {order: 2, width: 200}
+      name: wg_conf
+      type: string
+    - admin_ui: {order: 3, width: 200}
+      name: status_翻墙
+      type: string
+    - admin_ui: {order: 4, width: 200}
+      name: status_出口ip
+      type: string
     server: full
-    title: Table 1
+    title: dataant_status
 name: Material Design 1
 package_name: Material_Design_1
 runtime_options:
