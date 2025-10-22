@@ -37,6 +37,12 @@ class imei_node(imei_nodeTemplate):
                 node.style.textOverflow = "ellipsis"
                 node.style.maxWidth = "70px"
 
+                text = node.innerHTML or ""
+                if 'http' in text:
+                    node.innerHTML = f'<a href="{text}" target="_blank" >{text}</a>'
+
+
+
         # 产生自动下拉框
         self.dropdowns = {}  # {字段名: DropDown}
         if self.rows:
