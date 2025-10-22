@@ -1,5 +1,4 @@
-job
-    from ._anvil_designer import jobTemplate
+from ._anvil_designer import jobTemplate
 from anvil import *
 import anvil.server
 import anvil.tables as tables
