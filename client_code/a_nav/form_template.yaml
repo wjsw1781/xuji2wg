@@ -14,6 +14,11 @@ components:
   name: primary_color_3
   properties: {role: primary-color, text: 手机节点状态}
   type: Button
+- event_bindings: {click: primary_color_4_click}
+  layout_properties: {grid_position: 'FBJUDN,JIWVXJ'}
+  name: primary_color_4
+  properties: {role: primary-color, text: 业务监控}
+  type: Button
 container: {type: ColumnPanel}
 custom_component: true
 is_package: true
