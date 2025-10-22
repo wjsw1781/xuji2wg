@@ -95,3 +95,5 @@ cd /root/socks_ss_gfw_ss_socks/wg_one_2_many_peer/xuji2wg && anvil-app-server --
 
 
 
+10.97.0.7
+10.97.0.6
