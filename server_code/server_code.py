@@ -17,7 +17,7 @@ import anvil.server
 #   return 42
 
 
-
+from loguru import logger
 
 @anvil.server.http_endpoint("/add", methods=["POST","GET"], authenticate_users=False)
 def wg_server_public_ip_update(**kw):
@@ -29,23 +29,28 @@ def wg_server_public_ip_update(**kw):
 
 @anvil.server.http_endpoint("/c_table_json", methods=["POST","GET"], authenticate_users=False)
 def update_table_json(**kw):
-    data = anvil.server.request.body_json      # 这里拿到 JSON 数据
-    table = data['table']
-    data.pop('table')
+    logger.success(f'----->  {kw}' , )
+    table = kw['table']
+    kw.pop('table')
 
     table_obj = getattr(app_tables,table)
     
-    row = table_obj.add_row(**data)
-    return dict(row)
+    row = table_obj.add_row(**kw)
+    id  = row.get_id()  
+    return_data = dict(row)
+    return_data['id'] = id
+    return return_data
 
 @anvil.server.http_endpoint("/r_table_json", methods=["POST","GET"], authenticate_users=False)
 def reade_table_json(**kw):
-    data = anvil.server.request.body_json      # 这里拿到 JSON 数据
-    table = data['table']
-    data.pop('table')
+    logger.success(f'----->  {kw}' , )
+    table = kw['table']
+    kw.pop('table')
 
     table_obj = getattr(app_tables,table)
-    row = table_obj.search(**data)
+    row = table_obj.search(**kw)
+    if not row:
+        return {}
     return dict(row)
 
 

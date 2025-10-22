@@ -9,12 +9,12 @@ import subprocess, time,os,sys,json,random,ipaddress
 from loguru import logger
 
 
-url_host = 'http://8.217.224.52:59001'
+url_host = 'http://8.217.224.52:59001/_/api'
 
-crud_c_url = f'{url_host}/c_table_json/'
-crud_r_url = f'{url_host}/r_table_json/'
-crud_u_url = f'{url_host}/u_table_json/'
-crud_d_url = f'{url_host}/d_table_json/'
+crud_c_url = f'{url_host}/c_table_json'
+crud_r_url = f'{url_host}/r_table_json'
+crud_u_url = f'{url_host}/u_table_json'
+crud_d_url = f'{url_host}/d_table_json'
 
 import requests
 
@@ -41,8 +41,8 @@ def get_公私钥(ip: str):
         "wg_client_ip": "10.96.0.1",
         "table":table,
     }
-    res = requests.post(crud_c_url,data=data)
-    print(data)
+    res = requests.post(crud_r_url,data=data)
+    res = res.json()
     # 已存在，直接返回
     if res:                       
         return {
@@ -56,14 +56,18 @@ def get_公私钥(ip: str):
     pub = subprocess.check_output(["wg", "pubkey"], input=priv.encode()).strip().decode()
 
     # 4. 写入数据库
-    cur.execute(
-        f"INSERT INTO {TABLE_NAME} (ip, public_key, private_key) VALUES (?, ?, ?)",
-        (ip, pub, priv)
-    )
-    conn.commit()
-    new_id = cur.lastrowid
+    data = {
+        "wg_client_ip": ip,
+        "public_key": pub,
+        "private_key": priv,
 
-    return {"public": pub, "private": priv,'id': new_id}
+        "table":table,
+    }
+    res = requests.post(crud_c_url,data=data)
+    res = res.json()
+
+    return res
+
 
 
 # 需要多少个客户端配置
