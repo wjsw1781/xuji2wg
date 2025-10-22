@@ -38,7 +38,7 @@ private_key
 def get_公私钥(ip: str):
 
     data ={
-        "wg_client_ip": "10.96.0.1",
+        "wg_client_ip": ip,
         "table":table,
     }
     res = requests.post(crud_r_url,data=data)
