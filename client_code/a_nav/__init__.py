@@ -1,4 +1,4 @@
-from ._anvil_designer import navTemplate
+from ._anvil_designer import a_navTemplate
 from anvil import *
 import anvil.server
 import anvil.tables as tables
@@ -6,7 +6,7 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 
 
-class nav(navTemplate):
+class a_nav(a_navTemplate):
     def __init__(self, **properties):
         # Set Form properties and Data Bindings.
         self.init_components(**properties)
@@ -18,5 +18,6 @@ class nav(navTemplate):
         open_form('job')
 
     def primary_color_2_click(self, **event_args):
-        """This method is called when the button is clicked"""
-        open_form('node')
+        """This method ia_
+        s called when the button is clicked"""
+        open_form('wg_node_0000')
