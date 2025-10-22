@@ -50,12 +50,16 @@ for imei in datas:
 
 
 for imei in good_iemie:
+    imei =imei['设备号'] 
     data ={
         "table": table,
         'imei':imei,
         'imei_url':f'https://dataant.alibaba-inc.com/device/?deviceId={imei}',
     }
-    requests.post(crud_c_url,json=data)
+    # 如果存在就删除
+    requests.post(crud_d_url,data=data)
+    requests.post(crud_c_url,data=data)
+
 
 
 
