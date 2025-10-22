@@ -53,27 +53,16 @@ class wg_node_0000(wg_node_0000Template):
                 # 图片处理
                 if 'img' in (col_info.get('data_key') or ''):
                     b64 = (comp.text or "").strip()
-    
+                    src = f"data:image/png;base64,{b64}"
+
 
                     # 1) 生成一个 Link 组件替换掉原来的 Label
                     btn = anvil.Button(text="查看图", tooltip="点击查看原图")
+                    btn.set_event_handler('click',lambda **x:alert(anvil.Image(src=src )))     
                     # 3) 用同一列位置替换组件
                     row_tpl.add_component(btn, column=col_info['id'])
                     comp.remove_from_parent()  
-
-    
-
-                    # 2) 单行省略号 + 定宽 70px
-                    # link.set_event_handler(
-                    #     "click",
-                    #     lambda **e, l=link: anvil.alert(
-                    #         anvil.Image(source=f"data:image/png;base64,{l.tag.b64}",
-                    #                     max_height=400, max_width=400),
-                    #         large=True,
-                    #         title="查看图片")
-                    # )
-
-         # 把旧的 Label 删掉       
+   
         
             
 
