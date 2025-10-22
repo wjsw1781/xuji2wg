@@ -60,11 +60,14 @@ def reade_table_json(**kw):
     return res
 
 
+
+
+
 @anvil.server.http_endpoint("/u_table_json", methods=["POST","GET"], authenticate_users=False)
 def update_table_json(**kw):
     id = kw['id']
     table = kw['table']
-    
+
     kw.pop('id')
     kw.pop('table')
 
