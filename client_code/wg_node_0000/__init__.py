@@ -56,10 +56,10 @@ class wg_node_0000(wg_node_0000Template):
                     src = f"data:image/png;base64,{b64}"
 
 
-                    # 1) 生成一个 Link 组件替换掉原来的 Label
+                    # 1) 生成一个 btn 组件替换掉原来的 Label
                     btn = anvil.Button(text="查看图", tooltip="点击查看原图")
                     btn.set_event_handler('click',lambda **x:alert(anvil.Image(source=src )))  
-                       
+
                     # 3) 用同一列位置替换组件
                     row_tpl.add_component(btn, column=col_info['id'])
                     comp.remove_from_parent()  
