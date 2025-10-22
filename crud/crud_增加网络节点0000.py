@@ -343,15 +343,6 @@ bash {wg_conf_file_server_sh_this_dir}
 """)
 
 
-# 启动socks5进程
-cmds_socks5 = """
-    pip install asyncio-socks-server
-    pkill -f asyncio_socks_server
-    nohup python -m asyncio_socks_server --port 9898 >/dev/null 2>&1 & 
-    curl -x socks5://127.0.0.1:9898 ipinfo.io
-
-"""
-
 
 
 
