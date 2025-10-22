@@ -35,7 +35,7 @@ class wg_node_0000(wg_node_0000Template):
                 ]
                 filter_row.add_component(dd)
                 self.dropdowns[col] = dd
-            self.add_component(filter_row)
+            self.add_component(filter_row,index = 0)
 
     def add_one_row_click(self, **event_args):
         """This method is called when the button is clicked"""
