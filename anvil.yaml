@@ -21,7 +21,7 @@ db_schema:
     server: full
     title: dataant_status
   imei_node:
-    client: none
+    client: full
     columns:
     - admin_ui: {order: 0, width: 200}
       name: imei
@@ -46,7 +46,7 @@ db_schema:
     server: full
     title: job
   san_job_node_table:
-    client: none
+    client: full
     columns:
     - admin_ui: {order: 0, width: 200}
       name: job_name
@@ -99,5 +99,5 @@ services:
 - client_config: {}
   server_config: {}
   source: /runtime/services/tables.yml
-startup: {module: node, type: form}
+startup: {module: wg_node_0000, type: form}
 startup_form: null

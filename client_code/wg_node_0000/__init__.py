@@ -1,4 +1,4 @@
-from ._anvil_designer import nodeTemplate
+from ._anvil_designer import wg_node_0000Template
 from anvil import *
 import anvil.server
 import anvil.tables as tables
@@ -9,14 +9,15 @@ import anvil
 from ..utils import *
 
 
-class node(nodeTemplate):
+class wg_node_0000(wg_node_0000Template):
     def __init__(self, **properties):
         # Set Form properties and Data Bindings.
         self.init_components(**properties)
         # Any code you write here will run before the form opens.
         self.grid = nearest_datagrid(self)
         self.repeat = self.grid.get_components()[1]
-        self.table_name = find_table_exact(self.grid, all_table_scahma)
+        
+        self.table_name = self.__class__.__name__ 
         self.table_obj = getattr(app_tables, self.table_name)
 
         self.repeat.items = list(self.table_obj.search())
@@ -34,7 +35,7 @@ class node(nodeTemplate):
                 ]
                 filter_row.add_component(dd)
                 self.dropdowns[col] = dd
-            self.add_component(filter_row)
+            self.add_component(filter_row,index = 0)
 
     def add_one_row_click(self, **event_args):
         """This method is called when the button is clicked"""
@@ -44,8 +45,8 @@ class node(nodeTemplate):
 
         if not row:
             return
-
         self.table_obj.add_row(**row)
+        self.table_obj.list_columns()
 
         self.repeat.items = list(self.table_obj.search())
 

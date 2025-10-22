@@ -46,7 +46,12 @@ def find_table_exact(row_dict, schema_map):
     def get_scahma_by_grid(grid):
         data = {}
         for c in grid.columns:
+            
+            if 'column_' in c['data_key']:
+                 continue
+            
             data[c['data_key']] = ""
+            
         return data
 
     if isinstance(row_dict, anvil.DataGrid):
