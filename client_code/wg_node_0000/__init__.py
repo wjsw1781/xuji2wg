@@ -33,7 +33,6 @@ class wg_node_0000(wg_node_0000Template):
             for comp in row_comps:
                 col_index = row_comps.index(comp)
                 col_info = cols[col_index] 
-                # 给 DOM 节点加 class
                 if not isinstance(comp, anvil.Label):
                     continue
 
