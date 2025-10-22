@@ -48,8 +48,11 @@ for imei in datas:
 
     good_iemie.append(imei)
 
+process_bar = tqdm(total=len(good_iemie))
 
-for imei in good_iemie:
+for i in range(len(good_iemie)):
+    process_bar.update(1)
+    imei = good_iemie[i]
     imei =imei['设备号'] 
     data ={
         "table": table,
