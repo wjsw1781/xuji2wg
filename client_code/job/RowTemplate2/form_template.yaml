@@ -4,5 +4,10 @@ components:
   name: primary_color_1
   properties: {role: primary-color, text: 删除}
   type: Button
+- event_bindings: {click: primary_color_2_click}
+  layout_properties: {column: SNOIST}
+  name: primary_color_2
+  properties: {role: primary-color, text: 二维码}
+  type: Button
 container: {type: DataRowPanel}
 is_package: true

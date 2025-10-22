@@ -20,3 +20,21 @@ class RowTemplate2(RowTemplate2Template):
         """This method is called when the button is clicked"""
         self.item.delete()
         self.remove_from_parent()
+
+    def primary_color_2_click(self, **event_args):
+        # 弹一个对话框显示所有字段对应的图片
+        cp = anvil.ColumnPanel()     # 临时容器
+    
+        for key, b64 in self.item.items():
+            if not b64:                     # 空值跳过
+                continue
+            # 如果字段里存的是纯 base64 字符串（不含 data:image/png;base64, 前缀）
+            src = f"data:image/png;base64,{b64}"
+    
+            img = anvil.Image(source=src, height=200)
+            lbl = anvil.Label(text=key, align='center')
+    
+            cp.add_component(lbl)
+            cp.add_component(img)
+    
+        anvil.alert(cp, large=True, title="二维码/图片", buttons=[("关闭", False)])
