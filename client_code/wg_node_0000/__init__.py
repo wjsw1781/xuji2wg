@@ -44,7 +44,7 @@ class wg_node_0000(wg_node_0000Template):
         if self.rows:
             filter_row = FlowPanel()
             for col in dict(self.rows[0]).keys():  # 每一个字段
-                dd = DropDown(placeholder=col)
+                dd = DropDown(placeholder=col,width=100)
                 dd.items = [("全部", None)] + [  # 去重后的唯一值
                     (str(v), v)
                     for v in sorted({r[col] for r in self.rows if r[col] is not None})
