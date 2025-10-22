@@ -26,7 +26,7 @@ class wg_node_0000(wg_node_0000Template):
 
         self.rows = self.repeat.items
 
-        # 样式控制 文字太长都省略掉
+        # 样式控制 文字单元格太长都省略掉
         for row_tpl in self.repeat.get_components():
             for comp in row_tpl.get_components():
                 # 给 DOM 节点加 class
@@ -38,8 +38,9 @@ class wg_node_0000(wg_node_0000Template):
                 node.style.overflow     = "hidden"
                 node.style.textOverflow = "ellipsis"
                 node.style.maxWidth     = "70px" 
-                
-        
+            
+
+        # 产生自动下拉框
         self.dropdowns = {}  # {字段名: DropDown}
         if self.rows:
             filter_row = FlowPanel()
