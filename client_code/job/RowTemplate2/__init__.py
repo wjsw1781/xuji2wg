@@ -24,9 +24,9 @@ class RowTemplate2(RowTemplate2Template):
     def primary_color_2_click(self, **event_args):
         # 弹一个对话框显示所有字段对应的图片
         cp = anvil.ColumnPanel()     # 临时容器
-    
-        for key, b64 in self.item.items():
-            if not b64:                     # 空值跳过
+        item_dict = dict(self.item)
+        for key, b64 in item_dict.items():
+            if 'img' not in key:                     # 空值跳过
                 continue
             # 如果字段里存的是纯 base64 字符串（不含 data:image/png;base64, 前缀）
             src = f"data:image/png;base64,{b64}"

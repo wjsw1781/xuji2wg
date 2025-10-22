@@ -7,7 +7,7 @@ components:
 - event_bindings: {click: primary_color_2_click}
   layout_properties: {column: SNOIST}
   name: primary_color_2
-  properties: {role: primary-color, text: 二维码}
+  properties: {role: primary-color, text: 图片}
   type: Button
 container: {type: DataRowPanel}
 is_package: true
