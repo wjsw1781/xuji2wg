@@ -17,7 +17,7 @@ class RowTemplate1(RowTemplate1Template):
         """This method is called when the button is clicked"""
         cp = anvil.ColumnPanel()     # 临时容器
     
-        for key, b64 in self.item.items():
+        for key, b64 in dict(self.item).items():
             if 'img' not in  key:                     # 空值跳过
                 continue
             # 如果字段里存的是纯 base64 字符串（不含 data:image/png;base64, 前缀）
