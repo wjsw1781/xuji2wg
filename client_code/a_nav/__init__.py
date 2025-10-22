@@ -21,3 +21,7 @@ class a_nav(a_navTemplate):
         """This method ia_
         s called when the button is clicked"""
         open_form('wg_node_0000')
+
+    def primary_color_3_click(self, **event_args):
+        """This method is called when the button is clicked"""
+        open_form('imei_node')
