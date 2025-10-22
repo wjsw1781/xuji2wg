@@ -9,6 +9,7 @@ components:
       name: data_grid_2
       properties:
         columns:
+        - {data_key: column_1, id: SNOIST, title: 图片}
         - {data_key: column_1, id: QRVKWD, title: 删除}
         - {data_key: wg_client_ip, id: QDCWHL, title: wg_client_ip}
         - {data_key: wg_conf, id: IOLYSI, title: wg_conf}
