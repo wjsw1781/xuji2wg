@@ -13,7 +13,6 @@ components:
       name: data_grid_1
       properties:
         columns:
-        - {data_key: column_1, id: JKSDUP, title: 图片}
         - {data_key: wg_client_ip, id: JNGOHL, title: wg_client_ip}
         - {data_key: wg_conf, id: DBTNRH, title: wg_conf}
         - {data_key: public_key, id: VVUHJA, title: public_key}

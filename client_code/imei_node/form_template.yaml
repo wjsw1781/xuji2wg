@@ -13,7 +13,6 @@ components:
       name: data_grid_1
       properties:
         columns:
-        - {data_key: column_1, id: JKSDUP, title: 图片}
         - {data_key: imei, id: UUXCPP, title: imei}
         - {data_key: type_zhenji_or_xuji, id: QVDIFR, title: type_zhenji_or_xuji}
         - {data_key: imei_url, id: QELRLG, title: imei_url}

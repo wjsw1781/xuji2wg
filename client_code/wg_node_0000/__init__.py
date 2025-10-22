@@ -28,16 +28,41 @@ class wg_node_0000(wg_node_0000Template):
 
         # 样式控制 文字单元格太长都省略掉
         for row_tpl in self.repeat.get_components():
-            for comp in row_tpl.get_components():
+            row_comps = row_tpl.get_components()
+            cols = self.grid.columns  
+            for comp in row_comps:
+                col_index = row_comps.index(comp)
+                col_info = cols[col_index] 
                 # 给 DOM 节点加 class
                 if not isinstance(comp, anvil.Label):
                     continue
 
                 node = anvil.js.get_dom_node(comp).querySelector("span")
-                node.style.whiteSpace   = "nowrap"
-                node.style.overflow     = "hidden"
+                
+                # 文本处理
+                node.style.whiteSpace = "nowrap"
+                node.style.overflow = "hidden"
                 node.style.textOverflow = "ellipsis"
-                node.style.maxWidth     = "70px" 
+                node.style.maxWidth = "70px"
+
+
+                # 超链接处理
+                text = node.innerHTML or ""
+                if 'http' in text:
+                    node.innerHTML = f'<a href="{text}" target="_blank" >{text}</a>'
+                    
+                # 图片处理
+                if 'img' in col_info['data_key']:
+                    src = f"data:image/png;base64,{node.innerHTML}"
+                    node.innerHTML = (
+                        f'<button style="max-width:70px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" '
+                        f'onclick="var w=window.open(\'\', \'_blank\');'
+                        f'if(w){{w.document.write(\\\'<img src={src} style=\\\\\\\'max-width:100%;height:auto;\\\\\\\'>\\\');}}">'
+                        f'查看图片'
+                        f'</button>'
+                    )
+                
+        
             
 
         # 产生自动下拉框

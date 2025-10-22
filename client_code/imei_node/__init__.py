@@ -27,15 +27,26 @@ class imei_node(imei_nodeTemplate):
         # 样式控制 文字单元格太长都省略掉
         for row_tpl in self.repeat.get_components():
             for comp in row_tpl.get_components():
-                # 给 DOM 节点加 class
                 if not isinstance(comp, anvil.Label):
                     continue
-
+                    
                 node = anvil.js.get_dom_node(comp).querySelector("span")
+
+                # 文本处理
                 node.style.whiteSpace = "nowrap"
                 node.style.overflow = "hidden"
                 node.style.textOverflow = "ellipsis"
                 node.style.maxWidth = "70px"
+
+
+                # 超链接处理
+                text = node.innerHTML or ""
+                if 'http' in text:
+                    node.innerHTML = f'<a href="{text}" target="_blank" >{text}</a>'
+
+
+
+
 
         # 产生自动下拉框
         self.dropdowns = {}  # {字段名: DropDown}
