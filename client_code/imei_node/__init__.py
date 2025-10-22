@@ -55,13 +55,6 @@ class imei_node(imei_nodeTemplate):
 
 
 
-                # 超链接处理
-                text = node.innerHTML or ""
-                if 'http' in text:
-                    node.innerHTML = f'<a href="{text}" target="_blank" >{text}</a>'
-
-
-
 
 
         # 产生自动下拉框

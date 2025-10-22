@@ -52,16 +52,29 @@ class wg_node_0000(wg_node_0000Template):
                     node.innerHTML = f'<a href="{text}" target="_blank" >{text}</a>'
                     
                 # 图片处理
-                if 'img' in col_info['data_key']:
-                    src = f"data:image/png;base64,{node.innerHTML}"
-                    node.innerHTML = (
-                        f'<button style="max-width:70px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" '
-                        f'onclick="var w=window.open(\'\', \'_blank\');'
-                        f'if(w){{w.document.write(\\\'<img src={src} style=\\\\\\\'max-width:100%;height:auto;\\\\\\\'>\\\');}}">'
-                        f'查看图片'
-                        f'</button>'
-                    )
-                
+                if 'img' in (col_info.get('data_key') or ''):
+                    b64 = (comp.text or "").strip()
+    
+
+                    # 1) 生成一个 Link 组件替换掉原来的 Label
+                    btn = anvil.Button(text="查看图", tooltip="点击查看原图")
+                    # 3) 用同一列位置替换组件
+                    row_tpl.add_component(btn, column=col_info['id'])
+                    comp.remove_from_parent()  
+
+    
+
+                    # 2) 单行省略号 + 定宽 70px
+                    # link.set_event_handler(
+                    #     "click",
+                    #     lambda **e, l=link: anvil.alert(
+                    #         anvil.Image(source=f"data:image/png;base64,{l.tag.b64}",
+                    #                     max_height=400, max_width=400),
+                    #         large=True,
+                    #         title="查看图片")
+                    # )
+
+         # 把旧的 Label 删掉       
         
             
 
