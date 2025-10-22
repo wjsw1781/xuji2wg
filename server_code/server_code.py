@@ -25,7 +25,9 @@ def wg_server_public_ip_update(**kw):
     data = anvil.server.request.body_json      # 这里拿到 JSON 数据
     return data
 
-@anvil.server.http_endpoint("/add_table_json", methods=["POST","GET"], authenticate_users=False)
+
+
+@anvil.server.http_endpoint("/c_table_json", methods=["POST","GET"], authenticate_users=False)
 def update_table_json(**kw):
     data = anvil.server.request.body_json      # 这里拿到 JSON 数据
     table = data['table']
@@ -36,9 +38,44 @@ def update_table_json(**kw):
     row = table_obj.add_row(**data)
     return dict(row)
 
-@anvil.server.http_endpoint("/update_table_json", methods=["POST","GET"], authenticate_users=False)
+@anvil.server.http_endpoint("/r_table_json", methods=["POST","GET"], authenticate_users=False)
+def reade_table_json(**kw):
+    data = anvil.server.request.body_json      # 这里拿到 JSON 数据
+    table = data['table']
+    data.pop('table')
+
+    table_obj = getattr(app_tables,table)
+    row = table_obj.search(**data)
+    return dict(row)
+
+
+@anvil.server.http_endpoint("/u_table_json", methods=["POST","GET"], authenticate_users=False)
 def update_table_json(**kw):
     data = anvil.server.request.body_json      # 这里拿到 JSON 数据
-    return data
+    id = data['id']
+    data.pop('id')
+    table = data['table']
+    data.pop('table')
+
+    table_obj = getattr(app_tables,table)
+    row = table_obj.get(id=id)
+    row.update(**data)
+    return dict(row)
+
+
+
+
+@anvil.server.http_endpoint("/d_table_json", methods=["POST","GET"], authenticate_users=False)
+def delete_table_json(**kw):
+    data = anvil.server.request.body_json      # 这里拿到 JSON 数据
+    id = data['id']
+    table = data['table']
+    table_obj = getattr(app_tables,table)
+    row = table_obj.get(id=id)
+    row.delete()
+    return dict(row)
+
+
+
 
     
