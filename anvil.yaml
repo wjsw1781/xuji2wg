@@ -29,6 +29,9 @@ db_schema:
     - admin_ui: {order: 1, width: 200}
       name: type_zhenji_or_xuji
       type: string
+    - admin_ui: {order: 2, width: 200}
+      name: imei_url
+      type: string
     server: full
     title: imei_node
   job:
