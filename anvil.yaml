@@ -75,6 +75,12 @@ db_schema:
     - admin_ui: {width: 200}
       name: wg_conf
       type: string
+    - admin_ui: {order: 2, width: 200}
+      name: public_key
+      type: string
+    - admin_ui: {order: 3, width: 200}
+      name: private_key
+      type: string
     server: full
     title: wg_node_0000
   wg_node_9898:
