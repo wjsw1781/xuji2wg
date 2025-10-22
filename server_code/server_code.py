@@ -51,21 +51,26 @@ def reade_table_json(**kw):
     row = table_obj.search(**kw)
     if not row:
         return []
-    row = list(map(dict,row))
-    return row
+    
+    res = []
+    for one in row:
+        one_id = one.get_id()
+        one = dict(one)
+        res.append(dict(id=one_id,**one))
+    return res
 
 
 @anvil.server.http_endpoint("/u_table_json", methods=["POST","GET"], authenticate_users=False)
 def update_table_json(**kw):
-    data = anvil.server.request.body_json      # 这里拿到 JSON 数据
-    id = data['id']
-    data.pop('id')
-    table = data['table']
-    data.pop('table')
+    id = kw['id']
+    table = kw['table']
+    
+    kw.pop('id')
+    kw.pop('table')
 
     table_obj = getattr(app_tables,table)
-    row = table_obj.get(id=id)
-    row.update(**data)
+    row = table_obj.get_by_id(id)
+    row.update(**kw)
     return dict(row)
 
 
