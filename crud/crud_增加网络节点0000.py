@@ -68,7 +68,7 @@ def get_公私钥(ip: str):
 
 
 # 需要多少个客户端配置
-need_how_many_client = 500
+need_how_many_client = 10
 # 基础配置    # udp 接受的 mtu 必须要小
 MTU = 1380
 prefixlen = 32
@@ -255,7 +255,7 @@ for i in range(need_how_many_client):
         'wg_conf_img':b64_img,
     }
     res = requests.post(crud_u_url, data=data_update)
-    print(res.text)
+    print('修改 conf  和 二维码图片成功',res.status_code)
         
     peer_templet = f"""
         [Peer]
@@ -272,6 +272,7 @@ for i in range(need_how_many_client):
         ip rule add to {wg_ip_server_with_prefixlen} lookup {wg_table_server}
 
     """
+    # 搜集 client 和 ip rule to 规则
     peer_templets.append(peer_templet)
     ip_rule_servers.append(wg_server_ip_rule)
 
