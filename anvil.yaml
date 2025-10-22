@@ -105,5 +105,5 @@ services:
 - client_config: {}
   server_config: {}
   source: /runtime/services/tables.yml
-startup: {module: wg_node_0000, type: form}
+startup: {module: job, type: form}
 startup_form: null

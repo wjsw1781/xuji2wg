@@ -1,4 +1,4 @@
-from ._anvil_designer import jobTemplate
+from ._anvil_designer import job_statusTemplate
 from anvil import *
 import anvil.server
 import anvil.tables as tables
@@ -9,7 +9,7 @@ import anvil
 from ..utils import *
 
 
-class job(jobTemplate):
+class job_status(job_statusTemplate):
     def __init__(self, **properties):
         # Set Form properties and Data Bindings.
         self.init_components(**properties)
