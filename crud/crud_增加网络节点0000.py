@@ -28,6 +28,7 @@ wg_client_ip
 wg_conf
 public_key
 private_key
+
 """
 
 
