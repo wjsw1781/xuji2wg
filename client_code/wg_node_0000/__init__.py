@@ -9,6 +9,8 @@ import anvil
 from ..utils import *
 
 
+
+
 class wg_node_0000(wg_node_0000Template):
     def __init__(self, **properties):
         # Set Form properties and Data Bindings.
@@ -23,8 +25,22 @@ class wg_node_0000(wg_node_0000Template):
         self.repeat.items = list(self.table_obj.search())
 
         self.rows = self.repeat.items
-        self.dropdowns = {}  # {字段名: DropDown}
 
+        # 样式控制 文字太长都省略掉
+        for row_tpl in self.repeat.get_components():
+            for comp in row_tpl.get_components():
+                # 给 DOM 节点加 class
+                if not isinstance(comp, anvil.Label):
+                    continue
+
+                node = anvil.js.get_dom_node(comp).querySelector("span")
+                node.style.whiteSpace   = "nowrap"
+                node.style.overflow     = "hidden"
+                node.style.textOverflow = "ellipsis"
+                node.style.maxWidth     = "70px" 
+                
+        
+        self.dropdowns = {}  # {字段名: DropDown}
         if self.rows:
             filter_row = FlowPanel()
             for col in dict(self.rows[0]).keys():  # 每一个字段

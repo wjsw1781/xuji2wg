@@ -9,5 +9,7 @@ components:
   name: primary_color_2
   properties: {role: primary-color, text: 图片}
   type: Button
-container: {type: DataRowPanel}
+container:
+  properties: {spacing_above: small, spacing_below: small}
+  type: DataRowPanel
 is_package: true
