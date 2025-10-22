@@ -85,13 +85,18 @@ def update_table_json(**kw):
 
 @anvil.server.http_endpoint("/d_table_json", methods=["POST","GET"], authenticate_users=False)
 def delete_table_json(**kw):
-    data = anvil.server.request.body_json      # 这里拿到 JSON 数据
-    id = data['id']
-    table = data['table']
+    # id = kw['id']
+    table = kw['table']
+    kw.pop('table')
+
     table_obj = getattr(app_tables,table)
-    row = table_obj.get(id=id)
-    row.delete()
-    return dict(row)
+    row = list(table_obj.search(**kw))
+    try:
+        for one in row:
+            one.delete()
+    except Exception as e:
+        pass
+    return {}
 
 
 

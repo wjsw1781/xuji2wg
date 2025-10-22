@@ -41,12 +41,8 @@ def get_公私钥(ip: str):
         "wg_client_ip": ip,
         "table":table,
     }
-    res = requests.post(crud_r_url,data=data)
-    res = res.json()
-    # 已存在，直接返回
-    if res:                       
-        return res[0]
-    
+    # 删除
+    res = requests.post(crud_d_url,data=data)
 
     # 3. 生成新公私钥
     priv = subprocess.check_output(["wg", "genkey"]).strip().decode()
@@ -68,7 +64,7 @@ def get_公私钥(ip: str):
 
 
 # 需要多少个客户端配置
-need_how_many_client = 10
+need_how_many_client = 500
 # 基础配置    # udp 接受的 mtu 必须要小
 MTU = 1380
 prefixlen = 32
@@ -77,6 +73,8 @@ right_ips = '0.0.0.0/5,8.0.0.0/7,11.0.0.0/8,12.0.0.0/6,16.0.0.0/4,32.0.0.0/3,64.
 wg_ip_use_area = "10.97.0.0/16"
 wg_main_server_ip = '8.217.224.52'
 wg_main_server_ip_加速 = '47.99.89.181'
+
+
 logger.error(f"请注意   这里进行了加速 ip 替换掉原始 ip  海外 wg 必须加速才能使用  {wg_main_server_ip} =======>   加速后 {wg_main_server_ip_加速}"'')
 wg_main_server_ip = wg_main_server_ip_加速
 
@@ -103,7 +101,7 @@ wg_conf_file_server_sh_this_dir=f"./wg_client_sh/{wg_ip_use_area.replace('/','_'
 
 
 server_pub_pri=get_公私钥(wg_ip_server)
-srv_priv = server_pub_pri['public_key']
+srv_priv = server_pub_pri['private_key']
 srv_pub = server_pub_pri['public_key']
 
 
@@ -216,7 +214,7 @@ for i in range(need_how_many_client):
     use_file_conf_client= f"./wg_client_sh/{wg_ip_use_area.replace('/','_').replace('.','_')}/{wg_table_client}.conf"
     use_file_conf_phone_client= f"./wg_client_sh/{wg_ip_use_area.replace('/','_').replace('.','_')}/{wg_table_client}_phone.conf"
     use_file_conf_phone_client_二维码= f"./wg_client_sh/{wg_ip_use_area.replace('/','_').replace('.','_')}/{wg_table_client}_phone_二维码.png"
-    use_file_conf_phone_allowips= f"./wg_client_sh/{wg_ip_use_area.replace('/','_').replace('.','_')}/{wg_table_client}_allow.conf"
+    use_file_conf_phone_allowips= f"./wg_client_sh/{wg_ip_use_area.replace('/','_').replace('.','_')}/{wg_table_client}_a.conf"
     use_file_sh_client=os.path.abspath(use_file_sh_client)
     os.makedirs(os.path.dirname(use_file_sh_client), exist_ok=True)
 
