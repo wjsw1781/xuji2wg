@@ -90,10 +90,3 @@ If you want to get to the basics as quickly as possible, each section of this do
 
 cd /root/socks_ss_gfw_ss_socks/wg_one_2_many_peer/xuji2wg && anvil-app-server --app . --port 59001 --ip 0.0.0.0 --auto-migrate 
 
-
-
-
-
-
-10.97.0.7
-10.97.0.6
