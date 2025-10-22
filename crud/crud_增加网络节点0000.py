@@ -45,10 +45,7 @@ def get_公私钥(ip: str):
     res = res.json()
     # 已存在，直接返回
     if res:                       
-        return {
-            "public": res["public_key"],
-            "private": res["private_key"],
-        }
+        return res[0]
     
 
     # 3. 生成新公私钥
@@ -105,8 +102,8 @@ wg_conf_file_server_sh_this_dir=f"./wg_client_sh/{wg_ip_use_area.replace('/','_'
 
 
 server_pub_pri=get_公私钥(wg_ip_server)
-srv_priv = server_pub_pri['private']
-srv_pub = server_pub_pri['public']
+srv_priv = server_pub_pri['public_key']
+srv_pub = server_pub_pri['public_key']
 
 
 
@@ -130,8 +127,8 @@ for i in range(need_how_many_client):
     wg_conf_file_client_sh = f"/etc/wireguard/{wg_table_client}.sh"
 
     client_pub_pri=get_公私钥(wg_ip_client)
-    client_priv = client_pub_pri['private']
-    cli_pub = client_pub_pri['public']
+    client_priv = client_pub_pri['private_key']
+    cli_pub = client_pub_pri['public_key']
 
 
     # 生成配置文件
@@ -213,6 +210,7 @@ for i in range(need_how_many_client):
 
         bash {wg_conf_file_client_sh}
     """
+
     use_file_sh_client= f"./wg_client_sh/{wg_ip_use_area.replace('/','_').replace('.','_')}/{wg_table_client}.sh"
     use_file_conf_client= f"./wg_client_sh/{wg_ip_use_area.replace('/','_').replace('.','_')}/{wg_table_client}.conf"
     use_file_conf_phone_client= f"./wg_client_sh/{wg_ip_use_area.replace('/','_').replace('.','_')}/{wg_table_client}_phone.conf"
@@ -234,8 +232,8 @@ for i in range(need_how_many_client):
     with open(use_file_conf_phone_client,'w') as ff:
         ff.write(client_conf_no_root)
         # 写回 conf 字段 sqlite
-        cur.execute(f"UPDATE {TABLE_NAME} SET conf='{client_conf_no_root}' WHERE ip='{wg_ip_client}'")
-        conn.commit()
+
+
 
     with open(use_file_conf_phone_allowips,'w') as ff:
         ff.write(client_conf_no_root_with_allow_ips)
@@ -244,6 +242,19 @@ for i in range(need_how_many_client):
     import qrcode
     qrcode.make(client_conf_no_root).save(use_file_conf_phone_client_二维码)
 
+    import io,base64
+    buf = io.BytesIO()
+    qrcode.make(client_conf_no_root).save(buf, format='PNG')
+    b64_img = base64.b64encode(buf.getvalue()).decode('ascii')
+
+    data_update = {
+        'table':table,
+        'wg_conf':client_conf_no_root,
+        'wg_conf_img':client_conf_no_root,
+    }
+    res = requests.post(crud_u_url, json=data_update)
+    print(res.text)
+        
     peer_templet = f"""
         [Peer]
         PublicKey = {cli_pub}

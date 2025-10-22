@@ -50,8 +50,9 @@ def reade_table_json(**kw):
     table_obj = getattr(app_tables,table)
     row = table_obj.search(**kw)
     if not row:
-        return {}
-    return dict(row)
+        return []
+    row = list(map(dict,row))
+    return row
 
 
 @anvil.server.http_endpoint("/u_table_json", methods=["POST","GET"], authenticate_users=False)
