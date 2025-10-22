@@ -1,9 +1,9 @@
 components:
 - components:
   - components:
-    - layout_properties: {grid_position: 'CGQKHI,NQWBTU'}
+    - layout_properties: {grid_position: 'AXUUMD,SCZHZS'}
       name: headline_1_copy
-      properties: {align: center, role: headline, text: 业务状态}
+      properties: {align: center, role: headline, text: 路由节点状态}
       type: Label
     - components:
       - name: repeating_panel_2
@@ -13,10 +13,15 @@ components:
       name: data_grid_2
       properties:
         columns:
-        - {data_key: name, id: XFQJQD, title: name}
-        - {data_key: spider_location, id: WMCVNE, title: spider_location}
-        - {data_key: spider_node_num, id: GPKAMX, title: spider_node_num}
+        - {data_key: column_1, id: SNOIST, title: 图片}
         - {data_key: column_1, id: QRVKWD, title: 删除}
+        - {data_key: wg_client_ip, id: RLMLOI, title: wg_client_ip}
+        - {data_key: wg_conf, id: JOWPWN, title: wg_conf}
+        - {data_key: public_key, id: LXYGNJ, title: public_key}
+        - {data_key: private_key, id: OOEOAR, title: private_key}
+        - {data_key: wg_conf_img, id: AHRHUA, title: wg_conf_img}
+        rows_per_page: 1111111
+        wrap_on: mobile
       type: DataGrid
     - event_bindings: {click: add_one_row_click}
       layout_properties: {grid_position: 'BCCOHB,HBVYFV'}
@@ -40,6 +45,10 @@ components:
   name: navbar_links
   properties: {}
   type: FlowPanel
+- layout_properties: {slot: top-left-btn}
+  name: column_panel_1
+  properties: {}
+  type: ColumnPanel
 - layout_properties: {slot: left-nav}
   name: nav_1
   properties: {}
