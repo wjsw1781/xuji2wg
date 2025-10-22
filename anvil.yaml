@@ -93,5 +93,5 @@ services:
 - client_config: {}
   server_config: {}
   source: /runtime/services/tables.yml
-startup: {module: job, type: form}
+startup: {module: nav, type: form}
 startup_form: null
