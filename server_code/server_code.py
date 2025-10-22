@@ -79,6 +79,8 @@ def update_table_json(**kw):
 
 
 
+
+
 @anvil.server.http_endpoint("/d_table_json", methods=["POST","GET"], authenticate_users=False)
 def delete_table_json(**kw):
     data = anvil.server.request.body_json      # 这里拿到 JSON 数据
