@@ -23,7 +23,7 @@ class imei_node(imei_nodeTemplate):
         self.table_name = self.__class__.__name__
         self.table_obj = getattr(app_tables, self.table_name)
 
-        self.repeat.items = list(self.table_obj.search())
+        self.repeat.items = list(map(dict,self.table_obj.search()))
 
         self.rows = self.repeat.items
 
