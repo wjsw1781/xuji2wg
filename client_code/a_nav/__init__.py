@@ -29,3 +29,7 @@ class a_nav(a_navTemplate):
     def primary_color_4_click(self, **event_args):
         """This method is called when the button is clicked"""
         open_form('job_status')
+
+    def primary_color_5_click(self, **event_args):
+        """This method is called when the button is clicked"""
+        pass
