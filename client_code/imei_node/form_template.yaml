@@ -15,8 +15,9 @@ components:
         columns:
         - {data_key: column_1, id: SNOIST, title: 图片}
         - {data_key: column_1, id: QRVKWD, title: 删除}
-        - {data_key: imei, id: EVMWDN, title: imei}
-        - {data_key: type_zhenji_or_xuji, id: CDLZLP, title: type_zhenji_or_xuji}
+        - {data_key: imei, id: EKYZSK, title: imei}
+        - {data_key: type_zhenji_or_xuji, id: BCWYIV, title: type_zhenji_or_xuji}
+        - {data_key: imei_url, id: GINLFX, title: imei_url}
         rows_per_page: 1111111
         wrap_on: mobile
       type: DataGrid
