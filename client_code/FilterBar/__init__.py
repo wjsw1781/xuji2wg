@@ -12,6 +12,7 @@ import anvil.media, re
 
 DISPLAY_LIMIT = 10          # 弹窗最多展示的选项数
 
+from ..utils import *
 
 class FilterBar(FlowPanel):
     """
@@ -19,9 +20,14 @@ class FilterBar(FlowPanel):
   on_search  : 回调函数(filtered_rows)。未提供则抛 'x-search' 事件
   """
 
-    def __init__(self, rows, on_search=None,on_new=None, **properties):
+    def __init__(self, parent, on_search=None,on_new=None, **properties):
         super().__init__(**properties)
-
+        
+        # 添加一些关键属性以及缓存
+        list_add_self_items(parent)
+        
+        rows = parent.repeat.items
+        
         self.all_rows   = rows or []
         self.on_search  = on_search
         self.on_new  = on_new

@@ -132,3 +132,19 @@ def nearest_datagrid(comp):
         cur = cur.parent
     return None
 
+
+# 缓存数据
+
+cache_data = {}
+
+def list_add_self_items(self):
+    table_name = self.__class__.__name__ 
+    
+    if table_name in cache_data:
+        self.repeat.items = cache_data[table_name]
+        return
+        
+    # 进行网络请求
+    self.repeat.items  = list(map(dict,self.table_obj.search()))
+    cache_data[table_name] = self.repeat.items 
+    pass
