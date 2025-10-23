@@ -145,6 +145,7 @@ def list_add_self_items(self):
         return
         
     # 进行网络请求
-    self.repeat.items  = list(map(dict,self.table_obj.search()))
+    self.repeat.items  = list(reversed(list(map(dict,self.table_obj.search()))))
+    
     cache_data[table_name] = self.repeat.items 
     pass
