@@ -65,3 +65,6 @@ pe.execute_values(cur, f"INSERT INTO {tar_table} (wg_node_0000, rtt, time_stamp,
 
 
 
+
+
+
