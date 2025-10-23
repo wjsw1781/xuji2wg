@@ -38,11 +38,11 @@ db_schema:
       name: imei_id
       target: imei_node
       type: link_single
-    - admin_ui: {order: 1, width: 200}
+    - admin_ui: {order: 1, width: 208}
       name: node_0000_id
       target: wg_node_0000
       type: link_single
-    - admin_ui: {order: 2, width: 200}
+    - admin_ui: {order: 2, width: 208}
       name: node_9898_id
       target: wg_node_9898
       type: link_single
@@ -95,7 +95,16 @@ db_schema:
     title: wg_node_0000_status
   wg_node_9898:
     client: full
-    columns: []
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: wg_client_ip
+      type: string
+    - admin_ui: {order: 1, width: 200}
+      name: wg_conf
+      type: string
+    - admin_ui: {order: 2, width: 200}
+      name: wg_area
+      type: string
     server: full
     title: wg_node_9898
 name: xuji2wg
@@ -109,5 +118,5 @@ services:
 - client_config: {}
   server_config: {}
   source: /runtime/services/tables.yml
-startup: {module: z_jiankong, type: form}
+startup: {module: many_to_many, type: form}
 startup_form: null

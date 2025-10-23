@@ -32,4 +32,9 @@ class a_nav(a_navTemplate):
 
     def primary_color_5_click(self, **event_args):
         """This method is called when the button is clicked"""
-        pass
+        open_form('many_to_many')
+
+    def primary_color_6_click(self, **event_args):
+        """This method is called when the button is clicked"""
+        open_form('wg_node_9898')
+        

@@ -10,6 +10,15 @@ class RowTemplate1(RowTemplate1Template):
     def __init__(self, **properties):
         # Set Form properties and Data Bindings.
         self.init_components(**properties)
+        # 修改外键 id 为具体的内容
+        # print(self.item)
+        for key in self.item:
+            value = self.item[key]
+            if str(value) == '<LiveObject: anvil.tables.Row>':
+                all_key = list(dict(value).keys())
+                for name_find in job_name:
+                    if 'name' not in name_find
+                print(all_key)
 
         # Any code you write here will run before the form opens.
 

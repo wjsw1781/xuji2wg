@@ -4,6 +4,11 @@ components:
   name: primary_color_1
   properties: {role: primary-color, text: job}
   type: Button
+- event_bindings: {click: primary_color_4_click}
+  layout_properties: {grid_position: 'DNTMLJ,IIYTVG'}
+  name: primary_color_4
+  properties: {role: primary-color, text: 监控组件}
+  type: Button
 - event_bindings: {click: primary_color_3_click}
   layout_properties: {grid_position: 'PLONVF,UQWBWP'}
   name: primary_color_3
@@ -14,15 +19,15 @@ components:
   name: primary_color_2
   properties: {role: primary-color, text: 路由节点}
   type: Button
+- event_bindings: {click: primary_color_6_click}
+  layout_properties: {grid_position: 'YJZRVM,OOLFEG'}
+  name: primary_color_6
+  properties: {role: primary-color, text: 代理节点}
+  type: Button
 - event_bindings: {click: primary_color_5_click}
   layout_properties: {grid_position: 'NKLQZC,IHRDAE'}
   name: primary_color_5
   properties: {role: primary-color, text: 多对多表}
-  type: Button
-- event_bindings: {click: primary_color_4_click}
-  layout_properties: {grid_position: 'FBJUDN,JIWVXJ'}
-  name: primary_color_4
-  properties: {role: primary-color, text: 监控组件}
   type: Button
 container: {type: ColumnPanel}
 custom_component: true
