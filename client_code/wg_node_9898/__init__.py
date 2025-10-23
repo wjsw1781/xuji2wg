@@ -26,6 +26,3 @@ class wg_node_9898(wg_node_9898Template):
         # 头部筛选数据框
         self.add_component(FilterBar(self), index=0)
 
-
-
-app_tables.wg_node_0000.search()
