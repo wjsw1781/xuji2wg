@@ -245,6 +245,8 @@ class FilterBar(FlowPanel):
             for comp in row_comps:
                 col_index = row_comps.index(comp)
                 col_info = cols[col_index] 
+                key_name = cols[0]
+
                 if not isinstance(comp, anvil.Label):
                     continue
 
@@ -266,7 +268,20 @@ class FilterBar(FlowPanel):
                 if 'img' in (col_info.get('data_key') or ''):
                     def make_handler(image_src):
                         def _handler(**e):
-                            alert(anvil.Image(source=image_src))
+                            cp = ColumnPanel()
+                            img = Image(source=image_src,
+                                        width= '100%',              # 指定像素或 '100%'
+                                        )    # 让它自适应
+                            cp.add_component(img)
+                        
+                            cp.add_component(Label(text=key_name, align="center"))
+                                
+                            # 4) 使用 alert 弹出，设置 large=True 放大窗口
+                            alert(
+                                content=cp,
+                                large=True,
+                                buttons=[("关闭", None)]
+                            )
                         return _handler
                     
                     src = f"data:image/png;base64,{node.innerHTML}"
