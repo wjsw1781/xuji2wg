@@ -3,8 +3,8 @@ db_schema:
   imei_node:
     client: full
     columns:
-    - admin_ui: {width: 200}
-      name: imei
+    - admin_ui: {order: 0, width: 200}
+      name: imei_name
       type: string
     - admin_ui: {width: 200}
       name: type_zhenji_or_xuji
@@ -58,8 +58,8 @@ db_schema:
   wg_node_0000:
     client: full
     columns:
-    - admin_ui: {width: 200}
-      name: wg_client_ip
+    - admin_ui: {order: 0, width: 200}
+      name: wg_client_ip_name
       type: string
     - admin_ui: {width: 200}
       name: wg_conf
@@ -97,7 +97,7 @@ db_schema:
     client: full
     columns:
     - admin_ui: {order: 0, width: 200}
-      name: wg_client_ip
+      name: wg_client_ip_name
       type: string
     - admin_ui: {order: 1, width: 200}
       name: wg_conf
