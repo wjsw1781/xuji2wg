@@ -27,3 +27,5 @@ class wg_node_9898(wg_node_9898Template):
         self.add_component(FilterBar(self), index=0)
 
 
+
+app_tables.wg_node_0000.search()
