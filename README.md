@@ -88,5 +88,9 @@ The Anvil reference documentation provides comprehensive information on how to u
 If you want to get to the basics as quickly as possible, each section of this documentation features a [Quick-Start Guide](https://anvil.works/docs/overview/quickstarts?utm_source=github:app_README).
 
 
-cd /root/socks_ss_gfw_ss_socks/wg_one_2_many_peer/xuji2wg && anvil-app-server --app . --port 59001 --ip 0.0.0.0 --auto-migrate 
+ 
+
+cd /root/socks_ss_gfw_ss_socks/wg_one_2_many_peer/xuji2wg && anvil-app-server --app . --port 59001 --ip 0.0.0.0 --auto-migrate --database 'jdbc:postgresql://127.0.0.1:25332/anvildb?user=anvil_user&password=VerySecret%21'
+
+
 
