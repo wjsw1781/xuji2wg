@@ -21,9 +21,8 @@ from loguru import logger
 
 @anvil.server.http_endpoint("/add", methods=["POST","GET"], authenticate_users=False)
 def wg_server_public_ip_update(**kw):
-    print(kw)
-    data = anvil.server.request.body_json      # 这里拿到 JSON 数据
-    return data
+         # 这里拿到 JSON 数据
+    return 'hello'
 
 
 @anvil.server.http_endpoint("/c_table_json", methods=["POST","GET"], authenticate_users=False)
