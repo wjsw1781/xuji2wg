@@ -144,7 +144,16 @@ def list_add_self_items(self):
         self.repeat.items = cache_data[table_name]
         return
         
-    # 进行网络请求
-    self.repeat.items  = list(map(dict,self.table_obj.search()))
+    # 进行网络请求     # 改成进度展示
+
+    total = len(app_tables.imei_node.search({}))
+    data = []
+    index = 0
+    for i in self.table_obj.search():
+        data.append(dict(i))
+        index += 1
+        if index%100 == 0:
+            Notification(f'进度 {index} / {total}')
+    self.repeat.items  = list(reversed(data))
     cache_data[table_name] = self.repeat.items 
     pass
