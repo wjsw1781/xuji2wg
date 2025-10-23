@@ -7,10 +7,6 @@ components:
   name: navbar_links
   properties: {}
   type: FlowPanel
-- layout_properties: {slot: left-nav}
-  name: a_nav_1
-  properties: {}
-  type: form:a_nav
 container:
   properties: {html: '@theme:standard-page.html'}
   type: HtmlTemplate
