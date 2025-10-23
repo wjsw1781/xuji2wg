@@ -245,7 +245,7 @@ class FilterBar(FlowPanel):
             for comp in row_comps:
                 col_index = row_comps.index(comp)
                 col_info = cols[col_index] 
-                key_name = cols[0]
+                key_name = row_comps[0].text
 
                 if not isinstance(comp, anvil.Label):
                     continue
