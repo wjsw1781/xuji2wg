@@ -13,9 +13,9 @@ components:
       name: data_grid_1
       properties:
         columns:
-        - {data_key: imei, id: XGXFIA, title: imei}
-        - {data_key: type_zhenji_or_xuji, id: EZYJCJ, title: type_zhenji_or_xuji}
-        - {data_key: imei_url, id: PGCJKG, title: imei_url}
+        - {data_key: imei_name, id: LVQVYA, title: imei_name}
+        - {data_key: type_zhenji_or_xuji, id: KHIBAB, title: type_zhenji_or_xuji}
+        - {data_key: imei_url, id: MBRQWP, title: imei_url}
       type: DataGrid
     layout_properties: {full_width_row: true, grid_position: 'YTBJFH,RBCXPJ'}
     name: card_1_copy

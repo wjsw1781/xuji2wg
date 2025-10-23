@@ -48,7 +48,7 @@ class FilterBar(FlowPanel):
 
         btn_search = Button(text="搜索", icon="fa:search", role="primary")
         btn_csv    = Button(text="导出CSV", icon="fa:download")
-        btn_show_all    = Button(text="显示全部", icon="fa:download")
+        btn_show_all  = Button(text="显示全部", icon="fa:list")
 
         btn_new.set_event_handler   ("click", self._do_new)
 
@@ -59,15 +59,6 @@ class FilterBar(FlowPanel):
         self.add_component(btn_new)
 
         self.add_component(btn_csv)
-        self.add_component(btn_show_all)
-
-        self.add_component(btn_search)
-
-
-        
-        if not self.all_rows:
-            return
-
 
         # 生成输入框
         for f in self.fields:
@@ -77,7 +68,9 @@ class FilterBar(FlowPanel):
             self.add_component(tb)
             self.inputs[f]     = tb
             self.filter_set[f] = set()
+        self.add_component(btn_show_all)
 
+        self.add_component(btn_search)
 
 
     # --------------------------------------------------

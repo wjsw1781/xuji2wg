@@ -6,6 +6,7 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 
 
+
 class RowTemplate1(RowTemplate1Template):
     def __init__(self, **properties):
         # Set Form properties and Data Bindings.
@@ -16,9 +17,14 @@ class RowTemplate1(RowTemplate1Template):
             value = self.item[key]
             if str(value) == '<LiveObject: anvil.tables.Row>':
                 all_key = list(dict(value).keys())
-                for name_find in job_name:
-                    if 'name' not in name_find
-                print(all_key)
+                key_name = None
+                for name_find in all_key:
+                    if 'name'  in name_find:
+                        key_name = name_find
+                        break
+                if key_name:
+                    self.item[key] =  self.item[key][key_name] 
+
 
         # Any code you write here will run before the form opens.
 
