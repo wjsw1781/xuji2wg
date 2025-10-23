@@ -73,11 +73,6 @@ def update_table_json(**kw):
 
 
 
-
-
-
-
-
 @anvil.server.http_endpoint("/d_table_json", methods=["POST","GET"], authenticate_users=False)
 def delete_table_json(**kw):
     # id = kw['id']
@@ -92,6 +87,8 @@ def delete_table_json(**kw):
     except Exception as e:
         pass
     return {}
+
+
 
 
 
