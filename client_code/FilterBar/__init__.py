@@ -24,6 +24,8 @@ class FilterBar(FlowPanel):
 
         self.all_rows   = rows or []
         self.on_search  = on_search
+        self.on_new  = on_new
+        
         self.filter_set = {}            # {field:set(values)}
         self.inputs     = {}
         self.dist_cache = {}            # {field: (preview_list, total_cnt)}
@@ -45,12 +47,20 @@ class FilterBar(FlowPanel):
             self.filter_set[f] = set()
 
         # 搜索 + 导出按钮
+        btn_new    = Button(text="新增",   icon="fa:plus",   role="raised")
+
         btn_search = Button(text="搜索", icon="fa:search", role="primary")
         btn_csv    = Button(text="导出CSV", icon="fa:download")
+        btn_new.set_event_handler   ("click", self._do_new)
+
         btn_search.set_event_handler("click", self._do_search)
         btn_csv.set_event_handler("click", self._do_export)
-        self.add_component(btn_search)
+
+        self.add_component(btn_new)
+
         self.add_component(btn_csv)
+
+        self.add_component(btn_search)
 
     # --------------------------------------------------
     # 懒加载 distinct，截断到 DISPLAY_LIMIT
@@ -213,11 +223,11 @@ class FilterBar(FlowPanel):
             pnl.add_component(fp)
             edits[f] = tb
         
-            ok = alert(pnl, title="新建记录", buttons=[("确定", True), ("取消", False)])
+        ok = alert(pnl, title="新建记录", buttons=[("确定", True), ("取消", False)])
         if not ok:
             return
         
-            new_row = {f: edits[f].text for f in self.fields}
+        new_row = {f: edits[f].text for f in self.fields}
         
         # 交给外部处理（例如写入数据库、刷新表格等）
         if self.on_new:
