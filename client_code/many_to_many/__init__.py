@@ -1,4 +1,4 @@
-from ._anvil_designer import wg_node_0000_statusTemplate
+from ._anvil_designer import many_to_manyTemplate
 from anvil import *
 import anvil.server
 import anvil.tables as tables
@@ -12,7 +12,7 @@ from ..utils import *
 from ..FilterBar import FilterBar
 
 
-class wg_node_0000_status(wg_node_0000_statusTemplate):
+class many_to_many(many_to_manyTemplate):
     def __init__(self, **properties):
         # Set Form properties and Data Bindings.
         self.init_components(**properties)

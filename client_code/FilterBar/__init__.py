@@ -40,19 +40,8 @@ class FilterBar(FlowPanel):
         self.role       = 'filter-bar'
         self.spacing    = 'none'
 
-        if not self.all_rows:
-            return
-
-        self.fields = list(dict(self.all_rows[0]).keys())
-
-        # 生成输入框
-        for f in self.fields:
-            tb = TextBox(placeholder=f, width=140)
-            tb.tag.field = f
-            tb.set_event_handler('focus', self._open_selector)
-            self.add_component(tb)
-            self.inputs[f]     = tb
-            self.filter_set[f] = set()
+        # 字段
+        self.fields = list(map(lambda x:x['data_key'],self.parent_item.grid.columns))
 
         # 搜索 + 导出按钮
         btn_new    = Button(text="新增",   icon="fa:plus",   role="raised")
@@ -60,7 +49,7 @@ class FilterBar(FlowPanel):
         btn_search = Button(text="搜索", icon="fa:search", role="primary")
         btn_csv    = Button(text="导出CSV", icon="fa:download")
         btn_show_all    = Button(text="显示全部", icon="fa:download")
-        
+
         btn_new.set_event_handler   ("click", self._do_new)
 
         btn_search.set_event_handler("click", self._do_search)
@@ -73,6 +62,23 @@ class FilterBar(FlowPanel):
         self.add_component(btn_show_all)
 
         self.add_component(btn_search)
+
+
+        
+        if not self.all_rows:
+            return
+
+
+        # 生成输入框
+        for f in self.fields:
+            tb = TextBox(placeholder=f, width=140)
+            tb.tag.field = f
+            tb.set_event_handler('focus', self._open_selector)
+            self.add_component(tb)
+            self.inputs[f]     = tb
+            self.filter_set[f] = set()
+
+
 
     # --------------------------------------------------
     # 懒加载 distinct，截断到 DISPLAY_LIMIT
