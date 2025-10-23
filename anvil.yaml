@@ -26,6 +26,9 @@ db_schema:
     - admin_ui: {width: 200}
       name: job_many_to_many_url
       type: string
+    - admin_ui: {order: 3, width: 200}
+      name: job_have_url_binding_begin
+      type: string
     server: full
     title: job
   many_to_many:
