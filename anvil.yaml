@@ -1,25 +1,5 @@
 allow_embedding: false
 db_schema:
-  dataant_status:
-    client: full
-    columns:
-    - admin_ui: {width: 200}
-      name: job_name
-      type: string
-    - admin_ui: {width: 200}
-      name: wg_client_ip
-      type: string
-    - admin_ui: {width: 200}
-      name: wg_conf
-      type: string
-    - admin_ui: {width: 200}
-      name: status_翻墙
-      type: string
-    - admin_ui: {width: 200}
-      name: status_出口ip
-      type: string
-    server: full
-    title: dataant_status
   imei_node:
     client: full
     columns:
@@ -89,6 +69,18 @@ db_schema:
       type: string
     server: full
     title: wg_node_0000
+  wg_node_0000_status:
+    client: none
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: wg_node_0000
+      target: wg_node_0000
+      type: link_single
+    - admin_ui: {order: 1, width: 200}
+      name: rtt
+      type: number
+    server: full
+    title: wg_node_0000_status
   wg_node_9898:
     client: full
     columns: []
