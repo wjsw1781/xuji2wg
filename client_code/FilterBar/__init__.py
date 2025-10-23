@@ -229,7 +229,7 @@ class FilterBar(FlowPanel):
 
     # 显示成一页面
     def _show_all(self,**e):
-        self.grid.rows_per_page = len(self.parent_item.repeat.items)
+        self.parent_item.grid.rows_per_page = len(self.parent_item.repeat.items)
         self.update_table(self.parent_item.repeat.items)
 
     # 更新视图 纯函数
