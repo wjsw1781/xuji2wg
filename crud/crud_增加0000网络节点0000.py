@@ -8,59 +8,29 @@ from tqdm import tqdm
 import subprocess, time,os,sys,json,random,ipaddress
 from loguru import logger
 
+from utils import *
 
-url_host = 'http://8.217.224.52:59001/_/api'
-
-crud_c_url = f'{url_host}/c_table_json'
-crud_r_url = f'{url_host}/r_table_json'
-crud_u_url = f'{url_host}/u_table_json'
-crud_d_url = f'{url_host}/d_table_json'
-
-import requests
-
-
-table = 'wg_node_0000'
-
-
-"""
-
-wg_client_ip
-wg_conf
-public_key
-private_key
-
-"""
-
-
-# 查找
-
-
+table = 'app_tables.wg_node_0000'
+# 列名: [('_id',), ('wg_client_ip',), ('wg_conf',), ('public_key',), ('private_key',), ('wg_conf_img',)]
 
 def get_公私钥(ip: str):
-
-    data ={
-        "wg_client_ip": ip,
-        "table":table,
-    }
-    # 删除
-    res = requests.post(crud_d_url,data=data)
+    # 判断是否已经存在
+    cur.execute(f"SELECT * FROM {table} WHERE wg_client_ip = '{ip}';")
+    res = cur.fetchone()
+    if res:
+        return dict(res)
 
     # 3. 生成新公私钥
     priv = subprocess.check_output(["wg", "genkey"]).strip().decode()
     pub = subprocess.check_output(["wg", "pubkey"], input=priv.encode()).strip().decode()
 
     # 4. 写入数据库
-    data = {
-        "wg_client_ip": ip,
-        "public_key": pub,
-        "private_key": priv,
+    cur.execute(f"INSERT INTO {table} (wg_client_ip, public_key, private_key) VALUES ('{ip}', '{pub}', '{priv}');")
+    conn.commit()
 
-        "table":table,
-    }
-    res = requests.post(crud_c_url,data=data)
-    res = res.json()
-
-    return res
+    cur.execute(f"SELECT * FROM {table} WHERE wg_client_ip = '{ip}';")
+    res = cur.fetchone()
+    return dict(res)
 
 
 
@@ -71,16 +41,19 @@ MTU = 1380
 prefixlen = 32
 right_ips = '0.0.0.0/5,8.0.0.0/7,11.0.0.0/8,12.0.0.0/6,16.0.0.0/4,32.0.0.0/3,64.0.0.0/3,96.0.0.0/5,104.0.0.0/7,106.0.0.0/13,106.8.0.0/14,106.12.0.0/15,106.14.0.0/16,106.15.0.0/18,106.15.64.0/21,106.15.72.0/22,106.15.76.0/23,106.15.78.0/24,106.15.79.0/25,106.15.79.128/27,106.15.79.160/29,106.15.79.168/31,106.15.79.171/32,106.15.79.172/30,106.15.79.176/28,106.15.79.192/26,106.15.80.0/20,106.15.96.0/19,106.15.128.0/17,106.16.0.0/12,106.32.0.0/11,106.64.0.0/10,106.128.0.0/9,107.0.0.0/8,108.0.0.0/6,112.0.0.0/7,114.0.0.0/11,114.32.0.0/12,114.48.0.0/14,114.52.0.0/15,114.54.0.0/16,114.55.0.0/18,114.55.64.0/20,114.55.80.0/21,114.55.88.0/23,114.55.90.0/24,114.55.91.0/27,114.55.91.32/28,114.55.91.48/29,114.55.91.56/31,114.55.91.59/32,114.55.91.60/30,114.55.91.64/26,114.55.91.128/25,114.55.92.0/22,114.55.96.0/20,114.55.112.0/23,114.55.114.0/25,114.55.114.128/26,114.55.114.192/32,114.55.114.194/31,114.55.114.196/30,114.55.114.200/29,114.55.114.208/28,114.55.114.224/27,114.55.115.0/24,114.55.116.0/22,114.55.120.0/21,114.55.128.0/17,114.56.0.0/13,114.64.0.0/10,114.128.0.0/9,115.0.0.0/8,116.0.0.0/7,118.0.0.0/9,118.128.0.0/11,118.160.0.0/12,118.176.0.0/15,118.178.0.0/17,118.178.128.0/19,118.178.160.0/21,118.178.168.0/22,118.178.172.0/25,118.178.172.128/29,118.178.172.136/30,118.178.172.140/31,118.178.172.143/32,118.178.172.144/28,118.178.172.160/27,118.178.172.192/26,118.178.173.0/24,118.178.174.0/23,118.178.176.0/20,118.178.192.0/18,118.179.0.0/16,118.180.0.0/14,118.184.0.0/13,118.192.0.0/10,119.0.0.0/8,120.0.0.0/5,128.0.0.0/3,160.0.0.0/5,168.0.0.0/6,172.0.0.0/12,172.32.0.0/11,172.64.0.0/10,172.128.0.0/9,173.0.0.0/8,174.0.0.0/7,176.0.0.0/4,192.0.0.0/9,192.128.0.0/11,192.160.0.0/13,192.169.0.0/16,192.170.0.0/15,192.172.0.0/14,192.176.0.0/12,192.192.0.0/10,193.0.0.0/8,194.0.0.0/7,196.0.0.0/6,200.0.0.0/5,208.0.0.0/4,224.0.0.0/3'
 
+
+
+
+
 wg_ip_use_area = "10.97.0.0/16"
 wg_main_server_ip = '8.217.224.52'
 wg_main_server_ip_加速 = '47.99.89.181'
-
+RT_table_ID = 601
+ListenPort = 58002
 
 logger.error(f"请注意   这里进行了加速 ip 替换掉原始 ip  海外 wg 必须加速才能使用  {wg_main_server_ip} =======>   加速后 {wg_main_server_ip_加速}"'')
 wg_main_server_ip = wg_main_server_ip_加速
 
-RT_table_ID = 601
-ListenPort = 58002
 
 wg_server_client_ips = []
 
@@ -129,7 +102,7 @@ for i in range(need_how_many_client):
     client_pub_pri=get_公私钥(wg_ip_client)
     client_priv = client_pub_pri['private_key']
     cli_pub = client_pub_pri['public_key']
-    row_id = client_pub_pri['id']
+    row_id = client_pub_pri['_id']
 
 
     # 生成配置文件
@@ -247,14 +220,12 @@ for i in range(need_how_many_client):
     qrcode.make(client_conf_no_root).save(buf, format='PNG')
     b64_img = base64.b64encode(buf.getvalue()).decode('ascii')
 
-    data_update = {
-        'table':table,
-        'id':row_id,
-        'wg_conf':client_conf_no_root,
-        'wg_conf_img':b64_img,
-    }
-    res = requests.post(crud_u_url, data=data_update)
-    print('修改 conf  和 二维码图片成功',res.status_code)
+
+    # 更新数据库
+    sql = f"UPDATE {table} SET wg_conf='{client_conf_no_root}',wg_conf_img='{b64_img}' WHERE _id={row_id} ;"
+    res = cur.execute(sql)
+    print('修改 conf  和 二维码图片成功',res)
+    conn.commit()
         
     peer_templet = f"""
         [Peer]
