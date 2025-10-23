@@ -39,13 +39,16 @@ class ChartWidget(Plot):
                 traces.append(trace_cls(labels=s["labels"],
                                         values=s["values"],
                                         name=s.get("name")))
+            # 直方图
+            elif spec["type"] == "hist":
+                traces.append(trace_cls(x=s["x"], name=s.get("name")))
+            # 折线图柱状图随时间变化
             else:
                 traces.append(trace_cls(x=s["x"], y=s["y"],
                                         name=s.get("name"),
                                         mode="lines+markers" if spec["type"]=="line" else None))
-        super().__init__(data=traces,
-                         layout=spec.get("layout", {}),
-                         **props)
+        
+        super().__init__(data=traces, layout=spec.get("layout", {}),**props)
 
 
 
@@ -106,9 +109,9 @@ class z_jiankong(z_jiankongTemplate):
         spec_hist = {
             "type": "hist",
             "series": [
-                { "x": [random.gauss(300,50) for _ in range(200)], "y": [] }  # y 无需
+                {"x": [random.gauss(300, 50) for _ in range(400)]}
             ],
-            "layout": {"title":"Latency Histogram (ms)"}
+            "layout": {"title": "Latency Histogram (ms)"}
         }
 
 
