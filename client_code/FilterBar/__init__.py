@@ -25,7 +25,9 @@ class FilterBar(FlowPanel):
         
         # 添加一些关键属性以及缓存
         list_add_self_items(parent)
-        
+        self.parent_item = parent
+            
+
         rows = parent.repeat.items
         
         self.all_rows   = rows or []
@@ -234,9 +236,8 @@ class FilterBar(FlowPanel):
             return
         
         new_row = {f: edits[f].text for f in self.fields}
+        self.parent_item.table_obj.add_row(**new_row)
+        self.parent_item.repeat.items.insert(0,new_row)
+        self.parent_item.update_table(self.parent_item.repeat.items)
+
         
-        # 交给外部处理（例如写入数据库、刷新表格等）
-        if self.on_new:
-            self.on_new(new_row)
-        else:
-            self.raise_event("x-new", row=new_row)
