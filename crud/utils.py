@@ -16,9 +16,9 @@ conn = psycopg2.connect(
 conn.autocommit = True
 cur = conn.cursor()
 
-
+table_prefix = 'app_tables'
 # 打印所有表名
-cur.execute("SELECT table_name FROM information_schema.tables WHERE table_schema='app_tables';")
+cur.execute(f"SELECT table_name FROM information_schema.tables WHERE table_schema='{table_prefix}';")
 table_names = cur.fetchall()
 print(table_names)
 
@@ -29,7 +29,7 @@ for table_one in table_names:
     column_names = list(map(dict,cur.fetchall()))
     print(f"""
 
-    表名: {table_one}
+    表名: {table_prefix}.{table_one}
     列名: {column_names}
 
     """)
