@@ -68,7 +68,7 @@ def list_add_self_items(self):
     for i in self.table_obj.search():
         data.append(dict(i))
         index += 1
-        if index%100 == 0:
+        if index%500 == 0:
             Notification(f'进度 {index} / {total}').show()
             
     self.repeat.items  = list(reversed(data))
