@@ -94,7 +94,7 @@ cd /root/socks_ss_gfw_ss_socks/wg_one_2_many_peer/xuji2wg && anvil-app-server --
 
 
 
-nohup cd /root/socks_ss_gfw_ss_socks/wg_one_2_many_peer/xuji2wg && anvil-app-server --app . --port 59001 --ip 0.0.0.0 --auto-migrate --database 'jdbc:postgresql://127.0.0.1:25332/anvildb?user=anvil_user&password=VerySecret%21' >/dev/null 2>&1 &
+cd /root/socks_ss_gfw_ss_socks/wg_one_2_many_peer/xuji2wg && nohup anvil-app-server --app . --port 59001 --ip 0.0.0.0 --auto-migrate --database 'jdbc:postgresql://127.0.0.1:25332/anvildb?user=anvil_user&password=VerySecret%21' >/dev/null 2>&1 &
 
 
 

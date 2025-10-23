@@ -218,11 +218,11 @@ for i in range(need_how_many_client):
 
     # pip install qrcode[pil]  
     import qrcode
-    qrcode.make(client_conf_no_root).save(use_file_conf_phone_client_二维码)
+    qrcode.make(client_conf_no_root_with_allow_ips).save(use_file_conf_phone_client_二维码)
 
     import io,base64
     buf = io.BytesIO()
-    qrcode.make(client_conf_no_root).save(buf, format='PNG')
+    qrcode.make(client_conf_no_root_with_allow_ips).save(buf, format='PNG')
     b64_img = base64.b64encode(buf.getvalue()).decode('ascii')
 
 
