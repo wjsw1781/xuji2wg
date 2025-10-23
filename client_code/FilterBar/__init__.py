@@ -59,14 +59,18 @@ class FilterBar(FlowPanel):
 
         btn_search = Button(text="搜索", icon="fa:search", role="primary")
         btn_csv    = Button(text="导出CSV", icon="fa:download")
+        btn_show_all    = Button(text="显示全部", icon="fa:download")
+        
         btn_new.set_event_handler   ("click", self._do_new)
 
         btn_search.set_event_handler("click", self._do_search)
         btn_csv.set_event_handler("click", self._do_export)
+        btn_show_all.set_event_handler("click", self._show_all)
 
         self.add_component(btn_new)
 
         self.add_component(btn_csv)
+        self.add_component(btn_show_all)
 
         self.add_component(btn_search)
 
@@ -238,6 +242,11 @@ class FilterBar(FlowPanel):
         new_row = {f: edits[f].text for f in self.fields}
         self.parent_item.table_obj.add_row(**new_row)
         self.parent_item.repeat.items.insert(0,new_row)
+        self.parent_item.update_table(self.parent_item.repeat.items)
+
+    def _show_all(self,**e):
+        self.parent_item.grid.rows_per_page = len(self.parent_item.repeat.items)
+
         self.parent_item.update_table(self.parent_item.repeat.items)
 
         
