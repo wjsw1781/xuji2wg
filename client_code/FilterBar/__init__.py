@@ -65,6 +65,8 @@ class FilterBar(FlowPanel):
 
         self.add_component(btn_search)
 
+        # 显示成一页
+        self._show_all()
 
     # --------------------------------------------------
     # 懒加载 distinct，截断到 DISPLAY_LIMIT
@@ -232,7 +234,7 @@ class FilterBar(FlowPanel):
         self.parent_item.grid.rows_per_page = len(self.parent_item.repeat.items)
         self.update_table(self.parent_item.repeat.items)
 
-    # 更新视图 纯函数
+    # 更新视图 纯函数 修复成该有的样式
     def update_table(self, filtered_rows):
         self.parent_item.repeat.items = filtered_rows  
 
