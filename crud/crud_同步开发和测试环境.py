@@ -46,7 +46,7 @@ for pro_table in table_names_import:
         if len(dev_table_obj.search(**row))>0:
             for old_row in dev_table_obj.search(**row):
                 old_row.delete()
-        app_tables.imei_node.add_row(**row)
+        dev_table_obj.add_row(**row)
 
         
 
