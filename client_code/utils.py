@@ -145,7 +145,7 @@ def list_add_self_items(self):
         return
         
     # 进行网络请求     # 改成进度展示
-    total = len(app_tables.imei_node.search({}))
+    total = len(self.table_obj.search())
     data = []
     index = 0
     for i in self.table_obj.search():
