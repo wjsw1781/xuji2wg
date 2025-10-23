@@ -27,7 +27,7 @@ def wg_server_public_ip_update(**kw):
 
 
 @anvil.server.http_endpoint("/c_table_json", methods=["POST","GET"], authenticate_users=False)
-def update_table_json(**kw):
+def c_table_json(**kw):
     logger.success(f'----->  {kw}' , )
     table = kw['table']
     kw.pop('table')
