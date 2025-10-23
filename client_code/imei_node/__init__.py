@@ -28,9 +28,14 @@ class imei_node(imei_nodeTemplate):
         self.rows = self.repeat.items
 
         # 头部筛选数据框
-        self.add_component(FilterBar(self.rows, self.update_table), index=0)
+        self.add_component(FilterBar(self.rows, self.update_table,self.on_new), index=0)
         self.update_table(self.rows)
 
+    def on_new(self,dict):
+        self.table_obj.add_row(**dict)
+        self.rows+=[dict]
+        self.update_table(self.rows)
+        
     def update_table(self, filtered_rows):
         self.repeat.items = filtered_rows
 

@@ -19,7 +19,7 @@ class FilterBar(FlowPanel):
   on_search  : 回调函数(filtered_rows)。未提供则抛 'x-search' 事件
   """
 
-    def __init__(self, rows, on_search=None, **properties):
+    def __init__(self, rows, on_search=None,on_new=None, **properties):
         super().__init__(**properties)
 
         self.all_rows   = rows or []
@@ -189,6 +189,7 @@ class FilterBar(FlowPanel):
         blob = anvil.BlobMedia("text/plain", ("\ufeff" + csv_txt).encode("utf-8"),
                                "export.csv")
         anvil.media.download(blob)
+    
 
     # --------------------------------------------------
     # 抛结果
@@ -198,3 +199,28 @@ class FilterBar(FlowPanel):
             self.on_search(rows)
         else:
             self.raise_event("x-search", rows=rows)
+            
+    # 新增数据
+    def _do_new(self, **e):
+        pnl   = ColumnPanel()
+        edits = {}
+        
+        for f in self.fields:
+            fp = FlowPanel()
+            fp.add_component(Label(text=f, width=100))
+            tb = TextBox(width=200)
+            fp.add_component(tb)
+            pnl.add_component(fp)
+            edits[f] = tb
+        
+            ok = alert(pnl, title="新建记录", buttons=[("确定", True), ("取消", False)])
+        if not ok:
+            return
+        
+            new_row = {f: edits[f].text for f in self.fields}
+        
+        # 交给外部处理（例如写入数据库、刷新表格等）
+        if self.on_new:
+            self.on_new(new_row)
+        else:
+            self.raise_event("x-new", row=new_row)
