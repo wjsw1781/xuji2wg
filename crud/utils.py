@@ -20,7 +20,7 @@ table_prefix = 'app_tables'
 # 打印所有表名
 cur.execute(f"SELECT table_name FROM information_schema.tables WHERE table_schema='{table_prefix}';")
 table_names = cur.fetchall()
-print(table_names)
+table_names_import = []
 
 for table_one in table_names:
     # 获取这个表的列名用 f""
@@ -33,3 +33,4 @@ for table_one in table_names:
     列名: {column_names}
 
     """)
+    table_names_import.append(f"{table_prefix}.{table_one}")

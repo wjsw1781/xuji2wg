@@ -26,7 +26,6 @@ def wg_server_public_ip_update(**kw):
     return data
 
 
-
 @anvil.server.http_endpoint("/c_table_json", methods=["POST","GET"], authenticate_users=False)
 def update_table_json(**kw):
     logger.success(f'----->  {kw}' , )
@@ -58,9 +57,6 @@ def reade_table_json(**kw):
         one = dict(one)
         res.append(dict(id=one_id,**one))
     return res
-
-
-
 
 
 @anvil.server.http_endpoint("/u_table_json", methods=["POST","GET"], authenticate_users=False)
