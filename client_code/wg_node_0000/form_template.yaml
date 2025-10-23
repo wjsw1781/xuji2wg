@@ -13,11 +13,11 @@ components:
       name: data_grid_1
       properties:
         columns:
-        - {data_key: wg_client_ip, id: JNGOHL, title: wg_client_ip}
-        - {data_key: wg_conf, id: DBTNRH, title: wg_conf}
-        - {data_key: public_key, id: VVUHJA, title: public_key}
-        - {data_key: private_key, id: JNWACU, title: private_key}
-        - {data_key: wg_conf_img, id: LGUNCP, title: wg_conf_img}
+        - {data_key: wg_client_ip_name, id: TCJRKG, title: wg_client_ip_name}
+        - {data_key: wg_conf, id: GEAFQK, title: wg_conf}
+        - {data_key: public_key, id: ASKSCV, title: public_key}
+        - {data_key: private_key, id: LAYMGQ, title: private_key}
+        - {data_key: wg_conf_img, id: SEGGQM, title: wg_conf_img}
       type: DataGrid
     layout_properties: {full_width_row: true, grid_position: 'YTBJFH,RBCXPJ'}
     name: card_1_copy

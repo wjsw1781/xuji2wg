@@ -13,9 +13,9 @@ components:
       name: data_grid_1
       properties:
         columns:
-        - {data_key: wg_client_ip, id: JSNKGR, title: wg_client_ip}
-        - {data_key: wg_conf, id: YQRERZ, title: wg_conf}
-        - {data_key: wg_area, id: CGCEDF, title: wg_area}
+        - {data_key: wg_client_ip_name, id: ORHSPM, title: wg_client_ip_name}
+        - {data_key: wg_conf, id: VMJMVK, title: wg_conf}
+        - {data_key: wg_area, id: DCZNER, title: wg_area}
       type: DataGrid
     layout_properties: {full_width_row: true, grid_position: 'YTBJFH,RBCXPJ'}
     name: card_1_copy
