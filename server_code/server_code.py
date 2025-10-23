@@ -73,11 +73,6 @@ def update_table_json(**kw):
 
 
 
-
-
-
-
-
 @anvil.server.http_endpoint("/d_table_json", methods=["POST","GET"], authenticate_users=False)
 def delete_table_json(**kw):
     # id = kw['id']
@@ -94,6 +89,8 @@ def delete_table_json(**kw):
     return {}
 
 
+# 自定义路由 显示 1097 下面的一些节点
+@anvil.server.route("/wg_node_0000_by_route", methods=["POST","GET"], authenticate_users=False)
+def wg_node_0000_by_route(**kw)
+    return anvil.server.FormResponse('MyPageForm',**kw)
 
-
-    

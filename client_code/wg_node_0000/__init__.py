@@ -22,7 +22,9 @@ class wg_node_0000(wg_node_0000Template):
         self.table_name = self.__class__.__name__ 
         self.table_obj = getattr(app_tables, self.table_name)
 
-
-        # 头部筛选数据框
+        if 'page_by_route_url' in properties:
+            # 额外的操作 必须禁止 移除 或者额外请求一些东西添加一些组件  左右分栏
+            self.nav_1.remove_from_parent()
+            pass
         self.add_component(FilterBar(self), index=0)
  
