@@ -1,23 +1,6 @@
 components:
 - components:
-  - components:
-    - layout_properties: {grid_position: 'AXUUMD,SCZHZS'}
-      name: headline_1_copy
-      properties: {align: center, role: headline, text: 监控路由节点}
-      type: Label
-    - components:
-      - name: repeating_panel_1
-        properties: {item_template: wg_node_0000.RowTemplate1}
-        type: RepeatingPanel
-      layout_properties: {grid_position: 'ULBMXZ,GBLWFO'}
-      name: data_grid_1
-      properties:
-        columns:
-        - {data_key: wg_node_0000, id: NRBXCI, title: wg_node_0000}
-        - {data_key: rtt, id: NGGXXT, title: rtt}
-        - {data_key: time_stamp, id: WDCGQF, title: time_stamp}
-        - {data_key: day, id: DRFUGR, title: day}
-      type: DataGrid
+  - components: []
     layout_properties: {full_width_row: true, grid_position: 'YTBJFH,RBCXPJ'}
     name: card_1_copy
     properties: {role: card}
