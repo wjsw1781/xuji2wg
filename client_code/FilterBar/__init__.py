@@ -264,7 +264,7 @@ class FilterBar(FlowPanel):
 
                 # 图片处理
                 if 'img' in (col_info.get('data_key') or ''):
-                    b64 = (comp.text or "").strip()
+                    b64 = node.innerHTML.strip()
                     src = f"data:image/png;base64,{b64}"
 
 
