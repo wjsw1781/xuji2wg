@@ -15,12 +15,7 @@ DISPLAY_LIMIT = 10          # 弹窗最多展示的选项数
 from ..utils import *
 
 class FilterBar(FlowPanel):
-    """
-  rows       : list(dict/DataRow)  全量数据
-  on_search  : 回调函数(filtered_rows)。未提供则抛 'x-search' 事件
-  """
-
-    def __init__(self, parent, on_search=None,on_new=None, **properties):
+    def __init__(self, parent,  **properties):
         super().__init__(**properties)
         
         # 添加一些关键属性以及缓存
@@ -31,8 +26,6 @@ class FilterBar(FlowPanel):
         rows = parent.repeat.items
         
         self.all_rows   = rows or []
-        self.on_search  = on_search
-        self.on_new  = on_new
         
         self.filter_set = {}            # {field:set(values)}
         self.inputs     = {}
@@ -185,7 +178,7 @@ class FilterBar(FlowPanel):
     # 搜索
     # --------------------------------------------------
     def _do_search(self, **e):
-        self._emit_rows(self._apply_filter())
+        self.update_table(self._apply_filter())
 
     # --------------------------------------------------
     # 导出 CSV（前端）
@@ -212,15 +205,6 @@ class FilterBar(FlowPanel):
         anvil.media.download(blob)
     
 
-    # --------------------------------------------------
-    # 抛结果
-    # --------------------------------------------------
-    def _emit_rows(self, rows):
-        if self.on_search:
-            self.on_search(rows)
-        else:
-            self.raise_event("x-search", rows=rows)
-            
     # 新增数据
     def _do_new(self, **e):
         pnl   = ColumnPanel()
@@ -241,11 +225,53 @@ class FilterBar(FlowPanel):
         new_row = {f: edits[f].text for f in self.fields}
         self.parent_item.table_obj.add_row(**new_row)
         self.parent_item.repeat.items.insert(0,new_row)
-        self.parent_item.update_table(self.parent_item.repeat.items)
+        self.update_table(self.parent_item.repeat.items)
 
+    # 显示成一页面
     def _show_all(self,**e):
-        self.parent_item.grid.rows_per_page = len(self.parent_item.repeat.items)
+        self.grid.rows_per_page = len(self.parent_item.repeat.items)
+        self.update_table(self.parent_item.repeat.items)
 
-        self.parent_item.update_table(self.parent_item.repeat.items)
+    # 更新视图 纯函数
+    def update_table(self, filtered_rows):
+        self.parent_item.repeat.items = filtered_rows  
 
-        
+        # 样式控制 文字单元格太长都省略掉
+        for row_tpl in self.parent_item.repeat.get_components():
+            row_comps = row_tpl.get_components()
+            cols = self.parent_item.grid.columns  
+            for comp in row_comps:
+                col_index = row_comps.index(comp)
+                col_info = cols[col_index] 
+                if not isinstance(comp, anvil.Label):
+                    continue
+
+                node = anvil.js.get_dom_node(comp).querySelector("span")
+
+                # 文本处理
+                node.style.whiteSpace = "nowrap"
+                node.style.overflow = "hidden"
+                node.style.textOverflow = "ellipsis"
+                node.style.maxWidth = "70px"
+
+
+                # 超链接处理
+                text = node.innerHTML or ""
+                if 'url' in (col_info.get('data_key') or ''):
+                    node.innerHTML = f'<a href="{text}" target="_blank" >{text}</a>'
+
+                # 图片处理
+                if 'img' in (col_info.get('data_key') or ''):
+                    b64 = (comp.text or "").strip()
+                    src = f"data:image/png;base64,{b64}"
+
+
+                    # 1) 生成一个 btn 组件替换掉原来的 Label
+                    btn = anvil.Button(text="查看图", tooltip="点击查看原图")
+                    btn.set_event_handler('click',lambda **x:alert(anvil.Image(source=src )))  
+
+                    # 3) 用同一列位置替换组件
+                    row_tpl.add_component(btn, column=col_info['id'])
+                    comp.remove_from_parent()  
+
+                    
