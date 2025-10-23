@@ -22,13 +22,10 @@ class wg_node_0000(wg_node_0000Template):
         self.table_name = self.__class__.__name__ 
         self.table_obj = getattr(app_tables, self.table_name)
 
-        self.repeat.items = list(map(dict,self.table_obj.search()))
-
-        self.rows = self.repeat.items
 
         # 头部筛选数据框
-        self.add_component(FilterBar(self.rows, self.update_table,self.on_new), index=0)
-        self.update_table(self.rows)
+        self.add_component(FilterBar(self, self.update_table,self.on_new), index=0)
+        self.update_table(self.repeat.items)
  
     def on_new(self,dict):
         self.table_obj.add_row(**dict)
