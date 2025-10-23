@@ -11,24 +11,29 @@ from loguru import logger
 from utils import *
 
 table = 'app_tables.wg_node_0000'
-# 列名: [('_id',), ('wg_client_ip',), ('wg_conf',), ('public_key',), ('private_key',), ('wg_conf_img',)]
+# 业务id 字段
+filed_name = "wg_client_ip_name"
+
+    # 表名: app_tables.wg_node_0000
+    # 列名: [{'column_name': '_id'}, {'column_name': 'wg_conf'}, {'column_name': 'public_key'}, {'column_name': 'private_key'}, {'column_name': 'wg_conf_img'}, {'column_name': 'wg_client_ip_name'}]
 
 def get_公私钥(ip: str):
     # 判断是否已经存在
-    cur.execute(f"SELECT * FROM {table} WHERE wg_client_ip = '{ip}';")
+    cur.execute(f"SELECT * FROM {table} WHERE {filed_name} = '{ip}';")
     res = cur.fetchone()
     if res:
-        return dict(res)
+        priv = res['private_key']
+        pub = res['public_key']
+    else:
+        # 3. 生成新公私钥
+        priv = subprocess.check_output(["wg", "genkey"]).strip().decode()
+        pub = subprocess.check_output(["wg", "pubkey"], input=priv.encode()).strip().decode()
 
-    # 3. 生成新公私钥
-    priv = subprocess.check_output(["wg", "genkey"]).strip().decode()
-    pub = subprocess.check_output(["wg", "pubkey"], input=priv.encode()).strip().decode()
+        # 4. 写入数据库
+        cur.execute(f"INSERT INTO {table} ({filed_name}, public_key, private_key) VALUES ('{ip}', '{pub}', '{priv}');")
+        conn.commit()
 
-    # 4. 写入数据库
-    cur.execute(f"INSERT INTO {table} (wg_client_ip, public_key, private_key) VALUES ('{ip}', '{pub}', '{priv}');")
-    conn.commit()
-
-    cur.execute(f"SELECT * FROM {table} WHERE wg_client_ip = '{ip}';")
+    cur.execute(f"SELECT * FROM {table} WHERE {filed_name} = '{ip}';")
     res = cur.fetchone()
     return dict(res)
 

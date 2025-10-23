@@ -10,7 +10,7 @@ from loguru import logger
 
 from utils import *
 
-sync_num = 100
+sync_num = 10
 
 
 import requests
