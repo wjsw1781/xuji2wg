@@ -25,8 +25,7 @@ def make_handler(image_src,key_name):
                                 width='800px',      # 固定像素
                                 height='800px',
                                 display_mode='zoom'),   # 等比缩放
-            title=key_name + "  每个手机所在的 docker  1:1 分配",
-            large=True,         
+            title=key_name +
             width='1000px',      # 固定像素
             height='1000px',
             buttons=[("关闭", None)]
@@ -34,6 +33,7 @@ def make_handler(image_src,key_name):
     btn.set_event_handler('click', _handler)
 
     return btn
+
 
     
 
