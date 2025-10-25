@@ -16,12 +16,15 @@ from ..utils import *
 
 
 # 图片组件弹出工具
-def make_handler(image_src):
+def make_handler(image_src,key_name):
+    btn = anvil.Button(text="查看图", tooltip="点击查看原图")
+
     def _handler(**e):
         cp = ColumnPanel()
         img = Image(source=image_src,
                     width= '100%',              # 指定像素或 '100%'
                    )    # 让它自适应
+        
         cp.add_component(img)
 
         cp.add_component(Label(text=key_name, align="center"))
@@ -32,7 +35,11 @@ def make_handler(image_src):
             large=True,
             buttons=[("关闭", None)]
         )
-    return _handler
+    btn.set_event_handler('click', make_handler(image_src))
+
+    return btn
+
+    
 
 class FilterBar(FlowPanel):
     def __init__(self, parent,  **properties):
@@ -286,11 +293,8 @@ class FilterBar(FlowPanel):
 
                 # 图片处理
                 if 'img' in (col_info.get('data_key') or ''):
-
                     src = f"data:image/png;base64,{node.innerHTML}"
-                    btn = anvil.Button(text="查看图", tooltip="点击查看原图")
-                    btn.set_event_handler('click', make_handler(src))
-
+                    btn = make_handler(src,key_name)
                     # 3) 用同一列位置替换组件
                     row_tpl.add_component(btn, column=col_info['id'])
                     comp.remove_from_parent()  
