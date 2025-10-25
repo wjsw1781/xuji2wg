@@ -20,22 +20,18 @@ def make_handler(image_src,key_name):
     btn = anvil.Button(text="查看图", tooltip="点击查看原图")
 
     def _handler(**e):
-        cp = ColumnPanel()
-        img = Image(source=image_src,
-                    width= '100%',              # 指定像素或 '100%'
-                   )    # 让它自适应
-        
-        cp.add_component(img)
-
-        cp.add_component(Label(text=key_name, align="center"))
-
-        # 4) 使用 alert 弹出，设置 large=True 放大窗口
         alert(
-            content=cp,
-            large=True,
+            content=anvil.Image(source=image_src,
+                                width='800px',      # 固定像素
+                                height='800px',
+                                display_mode='zoom'),   # 等比缩放
+            title=key_name + "  每个手机所在的 docker  1:1 分配",
+            large=True,         
+            width='1000px',      # 固定像素
+            height='1000px',
             buttons=[("关闭", None)]
         )
-    btn.set_event_handler('click', make_handler(image_src))
+    btn.set_event_handler('click', _handler)
 
     return btn
 
