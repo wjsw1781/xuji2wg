@@ -16,20 +16,35 @@ from ..utils import *
 
 
 # 图片组件弹出工具
-def make_handler(image_src,key_name):
+def make_handler(image_src,key_name,csv_data=None):
     btn = anvil.Button(text="查看图", tooltip="点击查看原图")
 
     def _handler(**e):
-        alert(
-            content=anvil.Image(source=image_src,
-                                width='800px',      # 固定像素
-                                height='800px',
-                                display_mode='zoom'),   # 等比缩放
-            title=key_name ,
-            width='1000px',      # 固定像素
-            height='1000px',
-            buttons=[("关闭", None)]
-        )
+        buttons = [("关闭", None)]
+
+        if csv_data:
+            buttons.insert(0, ("下载文本", "download"))
+            
+        result = alert(
+                        content=anvil.Image(source=image_src,
+                                            width='800px',      # 固定像素
+                                            height='800px',
+                                            display_mode='zoom'
+                                        ), 
+                        title=key_name,
+                        width='1000px',      # 固定像素
+                        height='1000px',
+                        buttons=buttons,
+                 )
+        
+        # 如果用户点击了下载按钮
+        if result == "download":
+            csv_txt = []
+            for item in csv_data:
+                csv_txt.append(item.text) 
+            csv_txt = "\n\n\n\n".join(csv_txt)
+            blob = anvil.BlobMedia("text/plain", ("\ufeff" + csv_txt).encode("utf-8"),"export.txt")
+            anvil.media.download(blob)
     btn.set_event_handler('click', _handler)
 
     return btn
@@ -290,7 +305,7 @@ class FilterBar(FlowPanel):
                 # 图片处理
                 if 'img' in (col_info.get('data_key') or ''):
                     src = f"data:image/png;base64,{node.innerHTML}"
-                    btn = make_handler(src,key_name)
+                    btn = make_handler(src,key_name,csv_data = row_comps)
                     # 3) 用同一列位置替换组件
                     row_tpl.add_component(btn, column=col_info['id'])
                     comp.remove_from_parent()  
