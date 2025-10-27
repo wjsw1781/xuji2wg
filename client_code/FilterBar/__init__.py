@@ -25,7 +25,7 @@ def make_handler(image_src,key_name):
                                 width='800px',      # 固定像素
                                 height='800px',
                                 display_mode='zoom'),   # 等比缩放
-            title=key_name +
+            title=key_name ,
             width='1000px',      # 固定像素
             height='1000px',
             buttons=[("关闭", None)]
