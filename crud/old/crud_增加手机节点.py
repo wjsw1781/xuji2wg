@@ -15,12 +15,10 @@ table = 'app_tables.imei_node'
 """
     列名: [{'column_name': '_id'}, {'column_name': 'imei'}, {'column_name': 'type_zhenji_or_xuji'}, {'column_name': 'imei_url'}]
 """
-# 删除表
-cur.execute(f"DROP TABLE IF EXISTS {table}")
 
 # 全量导入  业务就是这样 不要想着每次新增一点 方便设计业务
 import pandas as pd 
-csv_all_imei = './device_info.csv'
+csv_all_imei = '../device_info.csv'
 
 
 
@@ -32,8 +30,9 @@ datas = pd.read_csv(csv_all_imei).to_dict('records')
 for imei in datas:
     心跳时间戳 = imei['心跳时间戳']
     设备号 = imei['设备号']
-    if now - 心跳时间戳//1000 > 60*60*24*3:
-        continue
+
+    # if now - 心跳时间戳//1000 > 60*60*24*3:
+    #     continue
 
     good_iemie.append(imei)
 
@@ -46,11 +45,16 @@ for i in range(len(good_iemie)):
     imei_url = f'https://dataant.alibaba-inc.com/device/?deviceId={imei}'
 
     # 如果存在就删除
-    cur.execute(f"DELETE FROM {table} WHERE imei = '{imei}'")
-    # 添加
+    cur.execute(f"DELETE FROM {table} WHERE imei_name = '{imei}'")
+    # 如果imei 存在任何 imei_url 也删除
+    cur.execute(f"DELETE FROM {table} WHERE imei_url = '{imei_url}'")
+    
+
     cur.execute(f"INSERT INTO {table} (imei_name,imei_url) VALUES (%s,%s)", (imei,imei_url))
     conn.commit()
-
+# 统计总数
+cur.execute(f"SELECT COUNT(*) FROM {table}")
+print(cur.fetchone())
 
 
 

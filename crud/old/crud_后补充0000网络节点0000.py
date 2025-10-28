@@ -8,7 +8,7 @@ from tqdm import tqdm
 import subprocess, time,os,sys,json,random,ipaddress
 from loguru import logger
 
-from utils import *
+from crud.utils import *
 
 import re
 _addr_re = re.compile(r'^\s*Address\s*=\s*([0-9A-Fa-f:./,]+)', re.M)
@@ -41,7 +41,8 @@ srv_pub = subprocess.check_output(f"""
 table = 'app_tables.wg_node_0000'
 
 
-# 列名: [('_id',), ('wg_client_ip',), ('wg_conf',), ('public_key',), ('private_key',), ('wg_conf_img',)]
+    # 表名: app_tables.wg_node_0000
+    # 列名: [{'column_name': '_id'}, {'column_name': 'wg_conf'}, {'column_name': 'public_key'}, {'column_name': 'private_key'}, {'column_name': 'wg_conf_img'}, {'column_name': 'wg_client_ip_name'}]
 import glob
 
 all_wg_conf = glob.glob('/root/socks_ss_gfw_ss_socks/wg_one_2_many_peer/xuji2wg/crud/wg_client_sh/10_96_0_0_16/*allow.conf')
@@ -73,15 +74,25 @@ for wg_conf in all_wg_conf:
     qrcode.make(client_conf_no_root_with_allow_ips).save(buf, format='PNG')
     b64_img = base64.b64encode(buf.getvalue()).decode('ascii')
     
-    cur.execute(f"SELECT * FROM {table} WHERE wg_client_ip='{peer_ip}'")
+    wg_client_ip_name = peer_ip.split('/')[0]
+
+    cur.execute(f"SELECT * FROM {table} WHERE wg_client_ip_name='{wg_client_ip_name}'")
     have_exist = cur.fetchone()
     if have_exist:
         # 删除
-        cur.execute(f"DELETE FROM {table} WHERE wg_client_ip='{peer_ip}'")
+        cur.execute(f"DELETE FROM {table} WHERE wg_client_ip_name='{wg_client_ip_name}'")
+
+    cur.execute(f"SELECT * FROM {table} WHERE wg_client_ip_name='{peer_ip}'")
+    have_exist = cur.fetchone()
+    if have_exist:
+        # 删除
+        cur.execute(f"DELETE FROM {table} WHERE wg_client_ip_name='{peer_ip}'")
 
 
-    cur.execute(f"INSERT INTO {table} (wg_client_ip, public_key, private_key,wg_conf, wg_conf_img) VALUES ('{peer_ip}', '{peer_pub}', '{peer_pri}','{client_conf_no_root_with_allow_ips}','{b64_img}');")
+    cur.execute(f"INSERT INTO {table} (wg_client_ip_name, public_key, private_key,wg_conf, wg_conf_img) VALUES ('{wg_client_ip_name}', '{peer_pub}', '{peer_pri}','{client_conf_no_root_with_allow_ips}','{b64_img}');")
     conn.commit()
 
-
+    # 打印总数
+    cur.execute(f"SELECT COUNT(*) FROM {table}")
+    print(cur.fetchone())
 
