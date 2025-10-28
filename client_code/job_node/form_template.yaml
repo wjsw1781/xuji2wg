@@ -9,7 +9,7 @@ components:
       - name: repeating_panel_1
         properties: {item_template: wg_node_0000.RowTemplate1}
         type: RepeatingPanel
-      layout_properties: {grid_position: 'ULBMXZ,GBLWFO'}
+      layout_properties: {full_width_row: true, grid_position: 'ULBMXZ,GBLWFO'}
       name: data_grid_1
       properties:
         columns:
