@@ -101,6 +101,8 @@ cd /root/socks_ss_gfw_ss_socks/wg_one_2_many_peer/xuji2wg && nohup anvil-app-ser
 
 
 
+8.217.224.52:59001
+
 
 
 
