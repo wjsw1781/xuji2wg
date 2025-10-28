@@ -27,7 +27,12 @@ for pro_table in table_names_import:
 
 
     dev_table = pro_table.split('.')[-1]
-    dev_table_obj = getattr(app_tables, dev_table)
+    
+    try:
+        dev_table_obj = getattr(app_tables, dev_table)
+    except:
+        continue
+
     for index ,row in enumerate(tqdm(data)):
         if index > sync_num:
             break
