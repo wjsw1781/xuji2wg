@@ -2,7 +2,7 @@ components:
 - event_bindings: {click: primary_color_1_click}
   layout_properties: {grid_position: 'ZWQMYE,CCIQDO'}
   name: primary_color_1
-  properties: {role: primary-color, text: job}
+  properties: {role: primary-color, text: 业务}
   type: Button
 - event_bindings: {click: primary_color_4_click}
   layout_properties: {grid_position: 'DNTMLJ,IIYTVG'}
@@ -22,7 +22,11 @@ components:
 - event_bindings: {click: primary_color_5_click}
   layout_properties: {grid_position: 'NKLQZC,IHRDAE'}
   name: primary_color_5
-  properties: {role: primary-color, text: 多对多表}
+  properties: {role: primary-color, text: 业务-节点}
+  type: Button
+- layout_properties: {grid_position: 'TYVVJC,RMWZUC'}
+  name: primary_color_3
+  properties: {role: primary-color, text: 业务-节点-审计}
   type: Button
 container: {type: ColumnPanel}
 custom_component: true

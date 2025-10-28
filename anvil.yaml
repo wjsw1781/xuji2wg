@@ -31,7 +31,7 @@ db_schema:
       type: string
     server: full
     title: job
-  many_to_many:
+  job_node:
     client: full
     columns:
     - admin_ui: {order: 0, width: 200}
@@ -54,7 +54,25 @@ db_schema:
       name: status_node
       type: string
     server: full
-    title: many_to_many
+    title: job_node
+  job_node_shenji:
+    client: none
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: job_node
+      target: job_node
+      type: link_single
+    - admin_ui: {order: 1, width: 200}
+      name: action
+      type: string
+    - admin_ui: {order: 2, width: 200}
+      name: before_json
+      type: string
+    - admin_ui: {order: 3, width: 200}
+      name: after_json
+      type: string
+    server: full
+    title: job_node_shenji
   wg_node_0000:
     client: full
     columns:
@@ -118,5 +136,5 @@ services:
 - client_config: {}
   server_config: {}
   source: /runtime/services/tables.yml
-startup: {module: many_to_many, type: form}
+startup: {module: job_node, type: form}
 startup_form: null

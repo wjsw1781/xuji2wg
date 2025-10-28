@@ -1,4 +1,4 @@
-from ._anvil_designer import many_to_manyTemplate
+from ._anvil_designer import job_nodeTemplate
 from anvil import *
 import anvil.server
 import anvil.tables as tables
@@ -12,7 +12,7 @@ from ..utils import *
 from ..FilterBar import FilterBar
 
 
-class many_to_many(many_to_manyTemplate):
+class job_node(job_nodeTemplate):
     def __init__(self, **properties):
         # Set Form properties and Data Bindings.
         self.init_components(**properties)
