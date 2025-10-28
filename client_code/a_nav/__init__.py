@@ -22,9 +22,9 @@ class a_nav(a_navTemplate):
         s called when the button is clicked"""
         open_form('wg_node_0000')
 
-    def primary_color_3_click(self, **event_args):
+    def m_click(self, **event_args):
         """This method is called when the button is clicked"""
-        open_form('imei_node')
+        open_form('job_node_shenji')
 
     def primary_color_4_click(self, **event_args):
         """This method is called when the button is clicked"""
@@ -37,4 +37,8 @@ class a_nav(a_navTemplate):
     def primary_color_6_click(self, **event_args):
         """This method is called when the button is clicked"""
         open_form('wg_node_9898')
+
+    def phone_click(self, **event_args):
+        """This method is called when the button is clicked"""
+        pass
         

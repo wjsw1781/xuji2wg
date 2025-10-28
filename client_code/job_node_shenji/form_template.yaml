@@ -1,0 +1,45 @@
+components:
+- components:
+  - components:
+    - layout_properties: {grid_position: 'AXUUMD,SCZHZS'}
+      name: headline_1_copy
+      properties: {align: center, role: headline, text: 业务-节点-审计}
+      type: Label
+    - components:
+      - name: repeating_panel_1
+        properties: {item_template: wg_node_0000.RowTemplate1}
+        type: RepeatingPanel
+      layout_properties: {grid_position: 'ULBMXZ,GBLWFO'}
+      name: data_grid_1
+      properties:
+        columns:
+        - {data_key: job_node, id: VGTOPM, title: job_node}
+        - {data_key: action, id: TQIYRG, title: action}
+        - {data_key: before_json, id: NVUXBR, title: before_json}
+        - {data_key: after_json, id: CXZYZO, title: after_json}
+      type: DataGrid
+    layout_properties: {full_width_row: true, grid_position: 'YTBJFH,RBCXPJ'}
+    name: card_1_copy
+    properties: {role: card}
+    type: ColumnPanel
+  layout_properties: {slot: default}
+  name: content_panel
+  properties: {}
+  type: ColumnPanel
+- layout_properties: {slot: nav-right}
+  name: navbar_links
+  properties: {}
+  type: FlowPanel
+- layout_properties: {slot: top-left-btn}
+  name: column_panel_1
+  properties: {}
+  type: ColumnPanel
+- layout_properties: {slot: left-nav}
+  name: nav_1
+  properties: {}
+  type: form:a_nav
+container:
+  properties: {html: '@theme:standard-page.html'}
+  type: HtmlTemplate
+custom_component: true
+is_package: true
