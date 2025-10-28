@@ -16,6 +16,7 @@ table3 = 'app_tables.wg_node_0000'
 table4='app_tables.job_node'
 
 """
+curl 10.96.1.228:9627/shell/getDeviceId
 """
 
 import pandas as pd 
