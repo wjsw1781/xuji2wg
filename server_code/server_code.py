@@ -21,6 +21,9 @@ from loguru import logger
 
 
 # 自定义路由 显示 1097 下面的一些节点
+"""
+http://8.217.224.52:59001/wg_node_0000_by_route?wg_client_ip_name=10.97.0.36
+"""
 @anvil.server.route("/wg_node_0000_by_route", methods=["POST","GET"], authenticate_users=False)
 def wg_node_0000_by_route(**kw):
     kw['condition_by_route']=True
