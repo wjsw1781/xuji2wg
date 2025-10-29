@@ -62,11 +62,14 @@ def list_add_self_items(self,condition_by_route):
         return
         
     # 进行网络请求     # 改成进度展示
-    total = len(self.table_obj.search(**condition_by_route))
+    iterator = self.table_obj.search(**condition_by_route)
+    total = len(iterator)
     data = []
     index = 0
-    for i in self.table_obj.search():
+    for i in iterator:
         data.append(dict(i))
+
+        
         index += 1
         if index%100 == 0:
             Notification(f'进度 {index} / {total}').show()

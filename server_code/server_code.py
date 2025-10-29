@@ -24,20 +24,12 @@ from loguru import logger
 """
 http://8.217.224.52:59001/wg_node_0000_by_route?wg_client_ip_name=10.97.0.36
 """
+
 @anvil.server.route("/wg_node_0000_by_route", methods=["POST","GET"], authenticate_users=False)
 def wg_node_0000_by_route(**kw):
     kw['condition_by_route']=True
     logger.success(kw)
     return anvil.server.FormResponse('wg_node_0000',**kw)
-
-
-# 多对多显示数据 自定义路由
-@anvil.server.route("/job_node_by_route", methods=["POST","GET"], authenticate_users=False)
-def job_node_by_route():
-    kw={}
-    kw['condition_by_route']=True
-    return anvil.server.FormResponse('job_node',**kw)
-
 
 
 
