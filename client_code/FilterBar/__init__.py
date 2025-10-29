@@ -87,11 +87,14 @@ class FilterBar(FlowPanel):
         btn_csv.set_event_handler("click", self._do_export)
         btn_show_all.set_event_handler("click", self._show_all)
 
+        # 添加 操作组件
         self.add_component(btn_new)
 
         self.add_component(btn_csv)
+        
+        self.add_component(btn_show_all)
 
-        # 生成输入框
+        # 添加 输入框
         for f in self.fields:
             tb = TextBox(placeholder=f, width=140)
             tb.tag.field = f
@@ -99,11 +102,11 @@ class FilterBar(FlowPanel):
             self.add_component(tb)
             self.inputs[f]     = tb
             self.filter_set[f] = set()
-        self.add_component(btn_show_all)
 
+        # 添加 搜索
         self.add_component(btn_search)
 
-        # 显示成一页
+        # 显示成一页 各自格式化
         self._show_all()
 
     # --------------------------------------------------

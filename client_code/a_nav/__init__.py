@@ -26,14 +26,6 @@ class a_nav(a_navTemplate):
         """This method is called when the button is clicked"""
         open_form('job_node_shenji')
 
-    def primary_color_4_click(self, **event_args):
-        """This method is called when the button is clicked"""
-        open_form('z_jiankong')
-
-    def primary_color_5_click(self, **event_args):
-        """This method is called when the button is clicked"""
-        open_form('job_node')
-
     def primary_color_6_click(self, **event_args):
         """This method is called when the button is clicked"""
         open_form('wg_node_9898')

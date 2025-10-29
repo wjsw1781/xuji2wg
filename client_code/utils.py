@@ -66,14 +66,17 @@ def list_add_self_items(self,condition_by_route):
     total = len(iterator)
     data = []
     index = 0
+    max =10
     for i in iterator:
         data.append(dict(i))
 
-        
+
+        # 控制显示进度 总量
         index += 1
         if index%100 == 0:
             Notification(f'进度 {index} / {total}').show()
-            
+        if index>max:
+            break
     self.repeat.items  = list(reversed(data))
     cache_data[table_name] = self.repeat.items 
     pass
