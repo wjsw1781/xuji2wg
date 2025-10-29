@@ -13,10 +13,9 @@ components:
       name: data_grid_1
       properties:
         columns:
-        - {data_key: job_name, id: HANEJZ, title: job_name}
-        - {data_key: job_status, id: JBWVDG, title: job_status}
-        - {data_key: job_many_to_many_url, id: YFHFPD, title: job_many_to_many_url}
-        - {data_key: job_have_url_binding_begin, id: EAMBJE, title: job_have_url_binding_begin}
+        - {data_key: job_name, id: IZWLMT, title: job_name}
+        - {data_key: job_status, id: GEPBJI, title: job_status}
+        - {data_key: m2m_detail_url, id: UXRFKM, title: m2m_detail_url}
       type: DataGrid
     layout_properties: {full_width_row: true, grid_position: 'YTBJFH,RBCXPJ'}
     name: card_1_copy
