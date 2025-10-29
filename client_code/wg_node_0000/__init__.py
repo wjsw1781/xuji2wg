@@ -27,6 +27,7 @@ class wg_node_0000(wg_node_0000Template):
         if 'condition_by_route' in properties:
             self.nav_1.remove_from_parent()
             condition_by_route = properties['condition_by_route']
+            print(properties)
             
-        self.add_component(FilterBar(self,condition_by_route), index=0)
+        self.add_component(FilterBar(self,{}), index=0)
  
