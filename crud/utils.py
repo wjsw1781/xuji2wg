@@ -34,3 +34,37 @@ for table_one in table_names:
 
     """)
     table_names_import.append(f"{table_prefix}.{table_one}")
+
+
+
+# anvil 运行时维护的对象
+import anvil.server
+from anvil.tables import app_tables
+anvil.server.connect("server_G5LS4NKQI44CSJSY73GRKMRG-F4ZBMGWQBKSHSVYA",url = 'ws://localhost:59001/_/uplink')
+
+def get_table_id_in_anvil(table_name):
+    dev_table = table_name.split('.')[-1]
+    getattr(app_tables, dev_table)
+    table_id = app_tables.cache[dev_table]._spec['id'][1]
+    return table_id
+
+
+# 删除表
+def drop_table(table_name):
+    cur.execute(f"""
+        select count(*) from {table_name}
+        """)
+    print(cur.fetchall())
+    
+    cur.execute(f"""
+            delete from {table_name} 
+        """
+    )
+    conn.commit()
+
+    # 统计数量
+    cur.execute(f"""
+        select count(*) from {table_name}
+        """)
+    print(cur.fetchall())
+    
