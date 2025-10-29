@@ -48,6 +48,10 @@ def get_table_id_in_anvil(table_name):
     table_id = app_tables.cache[dev_table]._spec['id'][1]
     return table_id
 
+def get_table_obj_in_anvil(table_name):
+    dev_table = table_name.split('.')[-1]
+    table_obj = getattr(app_tables, dev_table)
+    return table_obj
 
 # 删除表
 def drop_table(table_name):

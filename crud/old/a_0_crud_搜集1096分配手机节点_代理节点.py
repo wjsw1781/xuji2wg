@@ -98,24 +98,15 @@ for job in all_jobs:
 job = all_jobs[0]
 job_table_id = get_table_id_in_anvil(table2_job)
 job_pk = f'[{job_table_id},{job["_id"]}]'
+job_obj = get_table_obj_in_anvil(table2_job)
+job_row = job_obj.get_by_id(job_pk)
 
-# 删除所有 table4 等于这个 job 的
-cur.execute(f"""
-    delete from {table4_m2m} where job_id={job['_id']}
-    """
-)
-conn.commit()
-# 统计数量
-cur.execute(f"""
-    select count(*) from {table4_m2m}
-    """)
-print(cur.fetchall())
+table4_m2m_obj = get_table_obj_in_anvil(table4_m2m)
 
+all_data = df[(df['imei']!='获取 imei 失败') & (df['last_握手_ago']=='10 分钟内') ].to_dict('records')
 
-
-
-
-for data in df[(df['imei']!='获取 imei 失败') & (df['last_握手_ago']=='10 分钟内') ].to_dict('records'):
+import tqdm
+for data in tqdm.tqdm(all_data):
     allowed_ips_peer_ip = data['allowed_ips_peer_ip']
     imei_str = data['imei']
     peerip = allowed_ips_peer_ip.split('/')[0]
@@ -125,23 +116,30 @@ for data in df[(df['imei']!='获取 imei 失败') & (df['last_握手_ago']=='10 
     """)
     imei = cur.fetchall()[0]
     table_imei_id = get_table_id_in_anvil(table1_imei)
-    imei_pk = f'[{table_imei_id},{imei["_id"]}'
+    imei_pk = f'[{table_imei_id},{imei["_id"]}]'
+    imei_obj = get_table_obj_in_anvil(table1_imei)
+    imei_row = imei_obj.get_by_id(imei_pk)
 
     cur.execute(f"""
         select * from {table3_wg} where wg_client_ip_name='{peerip}'
     """)
     peerip = cur.fetchall()[0]
     table_peerip_id = get_table_id_in_anvil(table3_wg)
-    peerip_pk = f'[{table_peerip_id},{peerip["_id"]}'
+    peerip_pk = f'[{table_peerip_id},{peerip["_id"]}]'
+    peerip_obj = get_table_obj_in_anvil(table3_wg)
+    peerip_row = peerip_obj.get_by_id(peerip_pk)
 
 
+    for old_row in table4_m2m_obj.search(**{ 'imei_id': imei_row,'node_0000_id': peerip_row,}):
+        old_row.delete()
 
-
-    # 插入到数据库
-    cur.execute(f"""
-                insert into {table4_m2m} (job_id,imei_id,node_0000_id,status_node) values ('{job_pk}','{imei_pk}','{peerip_pk}','已分配')
-        """)
-    conn.commit()
+    new_row = table4_m2m_obj.add_row(**{
+        'job_id': job_row,
+        'imei_id': imei_row,
+        'node_0000_id': peerip_row,
+        'status_node': '已分配'
+    })
+    print(dict(new_row))
 
 
 
