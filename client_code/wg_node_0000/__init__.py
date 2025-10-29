@@ -28,8 +28,7 @@ class wg_node_0000(wg_node_0000Template):
             self.nav_1.remove_from_parent()
             del properties['condition_by_route']   
 
-            from loguru import logger 
-            logger.success(properties)   
-             
+            print(" --------> ",properties)   
+
         self.add_component(FilterBar(self,condition_by_route), index=0)
  
