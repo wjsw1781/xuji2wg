@@ -22,11 +22,10 @@ class wg_node_0000(wg_node_0000Template):
         self.table_name = self.__class__.__name__ 
         self.table_obj = getattr(app_tables, self.table_name)
 
+
         # 如果是通过自定义路由打开 只提取指定的数据  说白了就是不是全表显示
-        condition_by_route = {}
         if 'condition_by_route' in properties:
             self.nav_1.remove_from_parent()
             del properties['condition_by_route']   
 
         self.add_component(FilterBar(self,properties), index=0)
- 
