@@ -24,6 +24,7 @@ from loguru import logger
 @anvil.server.route("/wg_node_0000_by_route", methods=["POST","GET"], authenticate_users=False)
 def wg_node_0000_by_route(**kw):
     kw['condition_by_route']=True
+    logger.success(kw)
     return anvil.server.FormResponse('wg_node_0000',**kw)
 
 
