@@ -54,7 +54,7 @@ def nearest_datagrid(comp):
 
 cache_data = {}
 
-def list_add_self_items(self):
+def list_add_self_items(self,condition_by_route):
     table_name = self.__class__.__name__ 
     
     if table_name in cache_data:
@@ -62,7 +62,7 @@ def list_add_self_items(self):
         return
         
     # 进行网络请求     # 改成进度展示
-    total = len(self.table_obj.search())
+    total = len(self.table_obj.search(**condition_by_route))
     data = []
     index = 0
     for i in self.table_obj.search():

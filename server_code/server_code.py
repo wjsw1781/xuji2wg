@@ -23,11 +23,19 @@ from loguru import logger
 # 自定义路由 显示 1097 下面的一些节点
 @anvil.server.route("/wg_node_0000_by_route", methods=["POST","GET"], authenticate_users=False)
 def wg_node_0000_by_route(**kw):
-    return anvil.server.FormResponse('wg_node_0000',**kw)
+    kw['condition_by_route']=True
+
+    return anvil.server.FormResponse('wg_node_0000',by_route=by_route,**kw)
 
 
 # 多对多显示数据 自定义路由
 @anvil.server.route("/job_node_by_route", methods=["POST","GET"], authenticate_users=False)
-def job_node_by_route(**kw):
+def job_node_by_route():
+    kw={}
+    kw['condition_by_route']=True
     return anvil.server.FormResponse('job_node',**kw)
+
+
+
+
 

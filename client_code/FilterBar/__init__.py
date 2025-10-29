@@ -53,14 +53,14 @@ def make_handler(image_src,key_name,csv_data=None):
     
 
 class FilterBar(FlowPanel):
-    def __init__(self, parent,  **properties):
+    def __init__(self, parent, condition_by_route, **properties):
         super().__init__(**properties)
-        
-        # 添加一些关键属性以及缓存
-        list_add_self_items(parent)
-        self.parent_item = parent
-            
+        # 开始真正提取数据 获取必要 cache 里面 支持按照规则和
+        list_add_self_items(parent,condition_by_route)
 
+
+        
+        self.parent_item = parent
         rows = parent.repeat.items
         
         self.all_rows   = rows or []
