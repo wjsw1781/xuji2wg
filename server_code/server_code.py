@@ -31,6 +31,7 @@ def wg_node_0000_by_route(**kw):
     logger.success(kw)
     return anvil.server.FormResponse('wg_node_0000',**kw)
 
+
 """
 http://8.217.224.52:59001/job_node_by_route?wg_client_ip_name=10.97.0.36
 """
