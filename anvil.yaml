@@ -71,7 +71,7 @@ db_schema:
     server: full
     title: job_node_shenji
   sys_status:
-    client: none
+    client: full
     columns:
     - admin_ui: {order: 0, width: 200}
       name: host
@@ -82,6 +82,9 @@ db_schema:
     - admin_ui: {order: 2, width: 200}
       name: memery
       type: number
+    - admin_ui: {order: 3, width: 200}
+      name: ts
+      type: datetime
     server: full
     title: sys_status
   wg_node_0000:
