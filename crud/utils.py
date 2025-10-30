@@ -31,7 +31,6 @@ for table_one in table_names:
 
     表名: {table_prefix}.{table_one}
     列名: {column_names}
-
     """)
     table_names_import.append(f"{table_prefix}.{table_one}")
 
