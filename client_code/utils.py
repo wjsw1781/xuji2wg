@@ -66,7 +66,7 @@ def list_add_self_items(self,condition_by_route):
     total = len(iterator)
     data = []
     index = 0
-    max =10
+    max =400
     for i in iterator:
         data.append(dict(i))
 
