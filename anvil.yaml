@@ -70,6 +70,23 @@ db_schema:
       type: string
     server: full
     title: job_node_shenji
+  sys_status:
+    client: full
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: host
+      type: string
+    - admin_ui: {order: 1, width: 200}
+      name: cpu
+      type: string
+    - admin_ui: {order: 2, width: 200}
+      name: memery
+      type: number
+    - admin_ui: {order: 3, width: 200}
+      name: ts
+      type: datetime
+    server: full
+    title: sys_status
   wg_node_0000:
     client: full
     columns:
@@ -100,12 +117,15 @@ db_schema:
     - admin_ui: {order: 1, width: 200}
       name: rtt
       type: number
-    - admin_ui: {order: 2, width: 200}
-      name: time_stamp
-      type: string
-    - admin_ui: {order: 3, width: 200}
-      name: day
+    - admin_ui: {order: 4, width: 200}
+      name: ts
       type: datetime
+    - admin_ui: {order: 5, width: 200}
+      name: rx
+      type: number
+    - admin_ui: {order: 6, width: 200}
+      name: rt
+      type: number
     server: full
     title: wg_node_0000_status
   wg_node_9898:
@@ -133,5 +153,5 @@ services:
 - client_config: {}
   server_config: {}
   source: /runtime/services/tables.yml
-startup: {module: wg_node_0000, type: form}
+startup: {module: z_jiankong, type: form}
 startup_form: null
