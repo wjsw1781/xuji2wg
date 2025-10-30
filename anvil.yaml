@@ -153,5 +153,5 @@ services:
 - client_config: {}
   server_config: {}
   source: /runtime/services/tables.yml
-startup: {module: z_jiankong, type: form}
+startup: {module: wg_node_0000, type: form}
 startup_form: null
