@@ -13,8 +13,11 @@
             "console": "integratedTerminal",
             "justMyCode": false,
             "env": {
-                "PYTHONPATH": "${workspaceFolder}:${workspaceFolder}/..:${workspaceFolder}/../.."
-            }
+                "PYTHONPATH": "${workspaceFolder}:${workspaceFolder}/..:${workspaceFolder}/../..",
+
+            },
+            "gevent": true,
+
         }, 
     ]
 }

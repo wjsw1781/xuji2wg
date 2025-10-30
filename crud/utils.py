@@ -36,10 +36,16 @@ for table_one in table_names:
 
 
 
-# anvil 运行时维护的对象
+# anvil 运行时维护的对象 pip install anvil 
 import anvil.server
 from anvil.tables import app_tables
-anvil.server.connect("server_G5LS4NKQI44CSJSY73GRKMRG-F4ZBMGWQBKSHSVYA",url = 'ws://localhost:59001/_/uplink')
+KEY = "server_G5LS4NKQI44CSJSY73GRKMRG-F4ZBMGWQBKSHSVYA"
+ws_url = "ws://localhost:59001/_/uplink"
+anvil.server.connect(KEY,url = ws_url)
+
+
+print('wss success')
+
 
 def get_table_id_in_anvil(table_name):
     dev_table = table_name.split('.')[-1]
